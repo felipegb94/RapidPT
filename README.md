@@ -36,7 +36,14 @@ RapidPT can be used for the nonparametric statistical analysis of neuroimaging d
 <a name="setup">
 ## Setup
 </a>
-Simply clone the repository
+Simply clone the repository and add the path of the repository inside your program to be able to call the functions.
+
+```
+addpath('PATH_WHERE_YOU_CLONED_THE_REPOSITORY');
+%% YOUR MATLAB PROGRAM GOES HERE. 
+```
+
+If you don't want to have the `addpath` line in every program you make, you can have it in your `startup.m` file for you MATLAB setup.
 
 <a name="codeorganization">
 ## Code Organization
