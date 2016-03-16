@@ -34,6 +34,25 @@
         <h1>
 <a id="rapidpt" class="anchor" href="#rapidpt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RapidPT</h1>
 
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#usecases">Use Cases</a></li>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#codeorganization">Code Organization</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#references">References</a></li>
+</ol>
+
+<p><a name="overview"></a></p>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+
+<p></p>
+
 <p>Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating an alpha threshold that can accurately help identify what brain regions display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.</p>
 
 <p><strong>RapidPT</strong> is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. </p>
@@ -44,10 +63,13 @@
 
 <p><strong>3. Hardware Independent:</strong> It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by many orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops.</p>
 
+<p><a name="usecases"></a></p>
+
 <h2>
 <a id="use-cases" class="anchor" href="#use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use cases</h2>
 
-<p>RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. Various use cases in neuroimaging and similar applications show up here such as:</p>
+<p>
+RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. Various use cases in neuroimaging and similar applications show up here such as:</p>
 
 <p><strong>1. Placebo-Control Clinical Trials:</strong> Detect statistically significant difference between the brain images of the subjects assigned to the placebo and control groups.</p>
 
@@ -55,13 +77,20 @@
 
 <p><strong>Note to users:</strong> Feel free to add more use cases.</p>
 
+<p><a name="setup"></a></p>
+
 <h2>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
 
-<p>Simply clone the repository</p>
+<p>
+Simply clone the repository</p>
+
+<p><a name="codeorganization"></a></p>
 
 <h2>
 <a id="code-organization" class="anchor" href="#code-organization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Organization</h2>
+
+<p></p>
 
 <h3>
 <a id="rapidpt-1" class="anchor" href="#rapidpt-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RapidPT</h3>
@@ -111,13 +140,20 @@
 
 <p>This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes <code>TwoSampleRapidPT.m</code> more concise.</p>
 
+<p><a name="usage"></a></p>
+
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p></p>
+
+<p><a name="references"></a></p>
 
 <h2>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
 
-<p>RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, presented at NIPS, 2013.</p>
+<p>
+RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, presented at NIPS, 2013.</p>
 
 <p>C. Hinrichs, V. K. Ithapu, Q. Sun, V. Singh, S. C. Johnson, Speeding up Permutation Testing in Neuroimaging, Neural Information Processing Systems (NIPS), 2013.</p>
       </section>
