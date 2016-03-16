@@ -1,4 +1,16 @@
 # RapidPT
+## Table of Contents
+1. [Overview](#overview)
+2. [Use Cases](#usecases)
+3. [Setup](#setup)
+4. [Code Organization](#codeorganization)
+5. [Usage](#usage)
+6. [References](#references)
+
+
+<a name="overview">
+## Overview
+</a>
 
 Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating an alpha threshold that can accurately help identify what brain regions display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
 
@@ -10,7 +22,9 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 **3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by many orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops.
 
+<a name="usecases">
 ## Use cases
+</a>
 RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. Various use cases in neuroimaging and similar applications show up here such as:
 
 **1. Placebo-Control Clinical Trials:** Detect statistically significant difference between the brain images of the subjects assigned to the placebo and control groups.
@@ -19,11 +33,14 @@ RapidPT can be used for the nonparametric statistical analysis of neuroimaging d
 
 **Note to users:** Feel free to add more use cases.
 
+<a name="setup">
 ## Setup
+</a>
 Simply clone the repository
 
+<a name="codeorganization">
 ## Code Organization
-
+</a>
 ### RapidPT
 
 #### `RapidPT.m`
@@ -46,10 +63,13 @@ These are the default directories used to output the resulting max-null distribu
 ### util/
 This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
 
-
+<a name="usage">
 ## Usage
+</a>
 
+<a name="references">
 ## References
+</a>
 RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, presented at NIPS, 2013.
 
 C. Hinrichs, V. K. Ithapu, Q. Sun, V. Singh, S. C. Johnson, Speeding up Permutation Testing in Neuroimaging, Neural Information Processing Systems (NIPS), 2013.
