@@ -9,7 +9,10 @@ load(dataPath);
 [N,V] = size(Data);
 numPermutations = 5000;
 nGroup1 = 25; % You should what is the size of one of your groups prior.
-write = 0; % Set to 1 if you want the matrices used to recover the permutation matrix.
+% Set write to 1 if you want the matrices used to recover the permutation matrix.
+% Setting this to 1 will make outputs a very large variable, but may be
+% useful in certain cases.
+write = 0;
 
 [outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
