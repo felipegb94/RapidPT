@@ -1,71 +1,17 @@
-% Set path variables
+% Addpath RapidPT Repository Path (current working dir in this case)
+RapidPTLibraryPath = '.';
+addpath(RapidPTLibraryPath);
 
 % Load input data and input labels
-dataPathVal = '~/PermTest/data/ADRC/TwoSample/ADRC_100_50_50.mat'; 
-labelsPathVal = '~/PermTest/data/ADRC/TwoSample/labels_100_50_50.mat'; 
-load(dataPathVal);
-load(labelsPathVal);
+dataPath = '~/PermTest/data/ADRC/TwoSample/ADRC_50_25_25.mat'; 
+load(dataPath);
 % N subjects, V voxels (or statistics)
 [N,V] = size(Data);
+numPermutations = 5000;
+nGroup1 = 25; % You should what is the size of one of your groups prior.
+write = 0; % Set to 1 if you want the matrices used to recover the permutation matrix.
 
-% Set keys for input struct
-rapidPTLibraryPathKey = 'rapidPTLibraryPath';
-testingTypeKey = 'testingType';
-dataPathKey = 'dataPath';
-dataKey = 'data';
-labelsKey = 'labels';
-nGroup1Key = 'nGroup1';
-nGroup2Key = 'nGroup2';
-subKey = 'sub';
-TKey = 'T';
-maxRankKey = 'maxRank';
-trainNumKey = 'trainNum';
-maxCyclesKey = 'maxCycles';
-iterKey = 'iter';
-writingKey = 'writing';
-saveDirKey = 'saveDir';
-timingDirKey = 'timingDir';
+[outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
-% Set the corresponding values to the keys.
-rapidPTLibraryPathVal = {'~/PermTest/RapidPermTest'};
-testingTypeVal = {'TwoSample'};
-nGroup1Val = 50; % Size of group 1 
-nGroup2Val = 50; % Size of group 2
-subVal = {0.005};  % Sampling Rate
-TVal = {5000}; % Number of Permutations.
-maxRankVal = {N}; % Rank for estimating the low rank subspace
-trainNumVal = {100}; % Number of permutations for training.
-maxCyclesVal = {3}; % Number of cycles for training.
-iterVal = {30}; % Number of iterations for matrix completion.
-writingVal = {1}; % 0 if only output maxnull or 1 if outputs maxnull, U and W
-saveDirVal = {'outputs/'}; % Path to save outputs
-timingDirVal = {'timings/'}; % Path to save timing
-
-inputs = struct(rapidPTLibraryPathKey, rapidPTLibraryPathVal,...
-                testingTypeKey, testingTypeVal,...
-                dataKey, Data,...
-                labelsKey, labels,...
-                nGroup1Key, nGroup1Val,...
-                nGroup2Key, nGroup2Val,...
-                subKey, subVal,...
-                TKey, TVal,...mexPermTestIterative
-                maxRankKey, maxRankVal,...
-                trainNumKey, trainNumVal,...
-                maxCyclesKey, maxCyclesVal,...
-                iterKey, iterVal,...
-                writingKey, writingVal,...
-                saveDirKey, saveDirVal,...
-                timingDirKey, timingDirVal);
-            
-outputs = TwoSampleRapidPermutationTesting(inputs);
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+save(strcat('outputs/outputs_TwoSampleRapidPT_',num2str(numPermutations),'.mat'),'outputs');
+save(strcat('timings/timings_TwoSampleRapidPT_',num2str(numPermutations),'.mat'),'timings');

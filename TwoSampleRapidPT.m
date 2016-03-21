@@ -26,7 +26,7 @@
 %       matrix.
 %       - timings.tTotal - Total time it took.
 
-function [ outputs, timings ] = TwoSampleRapidPT( Data, numPermutations, nGroup1, writingVal )
+function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1, writingVal, RapidPTLibraryPath)
 % RapidPT 
 %   Modified permutation testing algorithm described in the following paper
 %   Speeding up Permutation Testing in Neuroimaging  C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh, NIPS 2013
@@ -35,11 +35,12 @@ function [ outputs, timings ] = TwoSampleRapidPT( Data, numPermutations, nGroup1
     [N,V] = size(Data);
 
     % Set keys for input struct
+    libraryPathKey = 'rapidPTLibraryPath';
     testingTypeKey = 'testingType';
     dataKey = 'data';
-    labelsKey = 'labels';
+    %labelsKey = 'labels';
     nGroup1Key = 'nGroup1';
-    nGroup2Key = 'nGroup2';
+    %nGroup2Key = 'nGroup2';
     subKey = 'sub';
     TKey = 'T';
     maxRankKey = 'maxRank';
@@ -62,17 +63,16 @@ function [ outputs, timings ] = TwoSampleRapidPT( Data, numPermutations, nGroup1
 
     nGroup1Val = nGroup1; % Size of group 1
     assert(N > nGroup1, 'nGroup1 cannot be larger than the number of subjects in the data');
-    nGroup2Val = N - nGroup1; % Size of group 2
+    %nGroup2Val = N - nGroup1; % Size of group 2
     TVal = {numPermutations}; % Number of Permutations.
     maxRankVal = {N}; % Rank for estimating the low rank subspace
     trainNumVal = {ceil(N/2)}; % Number of permutations for training.
 
 
-    inputs = struct(testingTypeKey, testingTypeVal,...
+    inputs = struct(libraryPathKey, RapidPTLibraryPath,...
+                    testingTypeKey, testingTypeVal,...
                     dataKey, Data,...
-                    labelsKey, labels,...
                     nGroup1Key, nGroup1Val,...
-                    nGroup2Key, nGroup2Val,...
                     subKey, subVal,...
                     TKey, TVal,...
                     maxRankKey, maxRankVal,...
@@ -82,17 +82,7 @@ function [ outputs, timings ] = TwoSampleRapidPT( Data, numPermutations, nGroup1
                     writingKey, writingVal);
             
     [outputs, timings] = RapidPT(inputs);
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
     
 end
 

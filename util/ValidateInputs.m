@@ -10,7 +10,7 @@ function [ ] = ValidateInputs( inputs )
     assert(isfield(inputs,'rapidPTLibraryPath'), 'Input Error: inputs.rapidPTLibraryPath is a required input..');
     assert(isfield(inputs,'testingType'), 'Input Error: inputs.testingType is a required input (select between OneSample and TwoSample).');
     if(strcmp(inputs.testingType,'TwoSample'))
-        assert(isfield(inputs,'labels'), 'Input Error: inputs.labels is a required input..');
+     %   assert(isfield(inputs,'labels'), 'Input Error: inputs.labels is a required input..');
     end
 
 end

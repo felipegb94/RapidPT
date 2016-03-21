@@ -48,7 +48,6 @@ function [ outputs, timings ] = RapidPT( inputs )
 %   Modified permutation testing algorithm described in the following paper
 %   Speeding up Permutation Testing in Neuroimaging  C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh, NIPS 2013
     
-    addpath('util');
     fprintf('Starting RapidPermutationTesting...\n');
     tTotal = tic;
     fprintf('\nStarting Preprocessing...\n');
@@ -56,7 +55,8 @@ function [ outputs, timings ] = RapidPT( inputs )
     ValidateInputs(inputs);
     data = inputs.data;
     dataSquared = data.*data;
-    labels = inputs.labels;
+    %labels = inputs.labels;
+    nGroup1 = inputs.nGroup1;
     rapidPTLibraryPath = inputs.rapidPTLibraryPath;
     
     fprintf('Adding Paths...\n');
@@ -65,10 +65,10 @@ function [ outputs, timings ] = RapidPT( inputs )
     fprintf('Processing Input Parameters...\n');
     N = size(data,1); % N: number of instances/subjects (rows in data matrix)
     V = size(data,2); % V: Number of statistics/voxel measurements (cols) 
-    uniqueLabels = unique(labels); % Unihttps://github.com/felipegb94/RapidPermTest.gitque labels
-    nGroup1 = length(find(labels==uniqueLabels(1))); % Number of patients in group 1
+%     uniqueLabels = unique(labels); % Unihttps://github.com/felipegb94/RapidPermTest.gitque labels
+%     nGroup1 = length(find(labels==uniqueLabels(1))); % Number of patients in group 1
     nGroup2 = N - nGroup1;
-    [sub, numPermutations, maxRank, trainNum, maxCycles, iter, write, saveDir, timingDir] = ProcessInput(inputs, N);
+    [sub, numPermutations, maxRank, trainNum, maxCycles, iter, write] = ProcessInput(inputs, N);
 
     fprintf('Initializing matrix completion parameters (GRASTA parameters) \n');
     [ options, opts, opts2, status ] = InitGrastaParams(maxRank, iter, V);
@@ -172,7 +172,7 @@ function [ outputs, timings ] = RapidPT( inputs )
     outputs.MaxNull = gen_hist(maxTStatistics,maxnullBins); 
     outputs.MaxT = maxTStatistics;
 
-    if inputs.writing == 1 
+    if write == 1 
         outputs.U = UHat; 
         outputs.W = W; 
     end

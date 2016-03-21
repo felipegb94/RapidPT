@@ -1,4 +1,4 @@
-function [ sub, numPermutations, maxRank, trainNum, maxCycles, iter, write, saveDir, timingDir ] = ProcessInput( inputs, N )
+function [ sub, numPermutations, maxRank, trainNum, maxCycles, iter, write ] = ProcessInput( inputs, N )
 %ProcessInput Get all input variables to run permutation testing
 % %     %%% INPUTS
 % %     A structure filed with following arguments
@@ -29,8 +29,8 @@ function [ sub, numPermutations, maxRank, trainNum, maxCycles, iter, write, save
     if isfield(inputs,'maxCycles') maxCycles = inputs.maxCycles; else maxCycles = 3; end
     if isfield(inputs,'iter') iter = inputs.iter; else iter = 30; end    
     if isfield(inputs,'write') write = inputs.write; else write = 0; end    
-    if isfield(inputs,'saveDir') saveDir = inputs.saveDir; else saveDir = pwd; end
-    if isfield(inputs,'timingDir') timingDir = inputs.timingDir; else timingDir = pwd; end
+%     if isfield(inputs,'saveDir') saveDir = inputs.saveDir; else saveDir = pwd; end
+%     if isfield(inputs,'timingDir') timingDir = inputs.timingDir; else timingDir = pwd; end
 
     fprintf('    sub = %d \n', sub)
     fprintf('    numPermutations = %d \n', numPermutations)
@@ -39,7 +39,7 @@ function [ sub, numPermutations, maxRank, trainNum, maxCycles, iter, write, save
     fprintf('    maxCycles = %d \n', maxCycles)
     fprintf('    iter = %d \n', iter)
     fprintf('    write = %d \n', write)
-    fprintf('    saveDir = %s \n', saveDir)
-    fprintf('    timingDir = %s \n', timingDir)
+%     fprintf('    saveDir = %s \n', saveDir)
+%     fprintf('    timingDir = %s \n', timingDir)
 end
 
