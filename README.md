@@ -3,8 +3,8 @@
 1. [Overview](#overview)
 2. [Use Cases](#usecases)
 3. [Setup](#setup)
-4. [Code Organization](#codeorganization)
-5. [Usage](#usage)
+4. [Usage](#usage)
+5. [Code Organization](#codeorganization)
 6. [References](#references)
 
 
@@ -45,31 +45,6 @@ addpath('PATH_WHERE_YOU_CLONED_THE_REPOSITORY');
 
 If you don't want to have the `addpath` line in every program you make, you can have it in your `startup.m` file for you MATLAB setup.
 
-<a name="codeorganization">
-## Code Organization
-</a>
-### RapidPT
-
-#### `RapidPT.m`
-This is the core of RapidPT. This is where the main algorithm and math ideas described in the NIPS paper happen.
-#### `TwoSampleRapidPT.m`
-This is a wrapper of the core. This function will assign most of the hyperparameters that can be given to `RapidPT.m` for you. The hyperparameters chosen have been extensively tested, and some of them are derived from the data dimensions and number of permutations chosen.
-#### `Example_TwoSampleRapidPT.m`
-This is an example script that uses `TwoSampleRapidPT.m` wrapper program.
-#### `Example_RapidPT.m`
-This is an example script that directly uses `RapidPT.m`. You will note that a lot more hyperparameters need to be passed to `RapidPT.m` compared to `TwoSampleRapidPT.m`.
-#### `TwoSampleGetLabelsMatrices.m`
-This is a function that given: `numPermutations` (Number of Permutations to be done), `N` (total number of subjects), `nGroup1` (The number of subjects in group1), returns the labels for each subject in each group that will be used at each permutation. 
-
-### include/
-The `include/` folder contains the library *grasta*. This library contains the online matrix completion method we use to accelerate permutation testing. For more information about *grasta* you can refer to the [project website](https://sites.google.com/site/hejunzz/grasta#TOC-Robust-Matrix-Completion).
-
-### outputs/ & timings/
-These are the default directories used to output the resulting max-null distribution, and timings of different sections of the algorithm. If the flag `inputs.write` is set to `1` the low-rank basis, `U`, and the coefficient matrix, `W`, that can recover the permutation matrix will also be saved.
-
-### util/
-This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
-
 <a name="usage">
 ## Usage
 </a>
@@ -103,6 +78,32 @@ There are two ways to use the core of RapidPT, either by calling the wrapper fun
 
 #### `Example_RapidPT.m`
 Take a look at the header comments of `RapidPT.m` and the comments in `Example_RapidPT.m` to see how to directly call `RapidPT.m`. It is recommended to use `TwoSampleRapidPT.m` in order to avoid hyperparameter tuning.
+
+
+<a name="codeorganization">
+## Code Organization
+</a>
+### RapidPT
+
+#### `RapidPT.m`
+This is the core of RapidPT. This is where the main algorithm and math ideas described in the NIPS paper happen.
+#### `TwoSampleRapidPT.m`
+This is a wrapper of the core. This function will assign most of the hyperparameters that can be given to `RapidPT.m` for you. The hyperparameters chosen have been extensively tested, and some of them are derived from the data dimensions and number of permutations chosen.
+#### `Example_TwoSampleRapidPT.m`
+This is an example script that uses `TwoSampleRapidPT.m` wrapper program.
+#### `Example_RapidPT.m`
+This is an example script that directly uses `RapidPT.m`. You will note that a lot more hyperparameters need to be passed to `RapidPT.m` compared to `TwoSampleRapidPT.m`.
+#### `TwoSampleGetLabelsMatrices.m`
+This is a function that given: `numPermutations` (Number of Permutations to be done), `N` (total number of subjects), `nGroup1` (The number of subjects in group1), returns the labels for each subject in each group that will be used at each permutation. 
+
+### include/
+The `include/` folder contains the library *grasta*. This library contains the online matrix completion method we use to accelerate permutation testing. For more information about *grasta* you can refer to the [project website](https://sites.google.com/site/hejunzz/grasta#TOC-Robust-Matrix-Completion).
+
+### outputs/ & timings/
+These are the default directories used to output the resulting max-null distribution, and timings of different sections of the algorithm. If the flag `inputs.write` is set to `1` the low-rank basis, `U`, and the coefficient matrix, `W`, that can recover the permutation matrix will also be saved.
+
+### util/
+This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
   
 <a name="references">
 ## References
