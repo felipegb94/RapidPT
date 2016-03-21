@@ -29,7 +29,7 @@ RapidPT can be used for the nonparametric statistical analysis of neuroimaging d
 
 **1. Placebo-Control Clinical Trials:** Detect statistically significant difference between the brain images of the subjects assigned to the placebo and control groups.
 
-**2. Activation Studies:** Detect statistically significant difference between the brain images of subjects during activation vs. during rest.
+**2. Activation Studies:** Detect statistically significant differences between the brain images of subjects during activation vs. during rest.
 
 **Note to users:** Feel free to add more use cases.
 
@@ -73,7 +73,37 @@ This directory contains various utility functions used by RapidPT for input vali
 <a name="usage">
 ## Usage
 </a>
+There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
 
+#### `Example_TwoSampleRapidPT.m`
+1. First add the path to where you cloned/downloaded the `RapidPT` repository, and also load the data you will be working with. The data matrix needs to be an `NxV`, where `N` is the total number of subjects and V is the number of voxel statistics per subject.
+
+		RapidPTLibraryPath = '.';
+		addpath(RapidPTLibraryPath);
+		dataPath = 'PATH TO DATA'; 
+		load(dataPath);
+        
+2. Set number of permutations and the number of subjects in either group 1 or 2 (it does not matter which one you specify).
+
+		numPermutations = 5000;
+		nGroup1 = 25; % You should what is the size of one of your groups prior.
+
+3. Set `write`. If set to 0, outputs will only contain the constructed maximum null distribution. If set to 1, the outputs struct will contain the basis matrix, `U`, and coefficient matrix `W`. `U*W` recover the permutation matrix. For an in depth explanation see the references. 
+4. Call `TwoSampleRapidPT.m`. `outputs` is a struct containing `outputs.MaxT`,`outputs.U`, and `outputs.W`. `timings` is a struct containing timing information of different part of `RapidPT` as well as the total timing.
+
+		[outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
+
+5. Optionally save `outputs` and `timings`.
+6. Get the t-threshold estimate from the recovered maximum null distribution.
+
+		alpha_threshold = 1; % 1 percent
+		t_threshold = GetTThresh(outputs.MaxT, alpha_threshold);
+		
+7. If you have the labels of the data available, you can calculate the two-sample t-test and see compare the result of each voxel to the t-threshold and see which voxels exhibit statistically significant activity.
+
+#### `Example_RapidPT.m`
+Take a look at the header comments of `RapidPT.m` and the comments in `Example_RapidPT.m` to see how to directly call `RapidPT.m`. It is recommended to use `TwoSampleRapidPT.m` in order to avoid hyperparameter tuning.
+  
 <a name="references">
 ## References
 </a>

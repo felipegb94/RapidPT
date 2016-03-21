@@ -178,7 +178,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
     end
     
     fprintf('TwoSampleRapidPT Done...');
-    timings.tTotal = tTotal;
+    timings.tTotal = toc(tTotal);
 
 end
 
