@@ -70,7 +70,7 @@ RapidPT can be used for the nonparametric statistical analysis of neuroimaging d
 
 <p><strong>1. Placebo-Control Clinical Trials:</strong> Detect statistically significant difference between the brain images of the subjects assigned to the placebo and control groups.</p>
 
-<p><strong>2. Activation Studies:</strong> Detect statistically significant difference between the brain images of subjects during activation vs. during rest.</p>
+<p><strong>2. Activation Studies:</strong> Detect statistically significant differences between the brain images of subjects during activation vs. during rest.</p>
 
 <p><strong>Note to users:</strong> Feel free to add more use cases.</p>
 
@@ -148,7 +148,53 @@ Simply clone the repository and add the path of the repository inside your progr
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
-<p></p>
+<p>
+There are two ways to use the core of RapidPT, either by calling the wrapper function <code>TwoSampleRapidPT.m</code> or directly calling the core function <code>RapidPT.m</code>. <code>TwoSampleRapidPT</code> assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls <code>RapidPT</code>. On the other hand if you call <code>RapidPT</code> directly you will have to assign these parameters. Let's first go through <code>Example_TwoSampleRapidPT.m</code>:</p>
+
+<h4>
+<a id="example_twosamplerapidptm-1" class="anchor" href="#example_twosamplerapidptm-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>Example_TwoSampleRapidPT.m</code>
+</h4>
+
+<ol>
+<li>
+<p>First add the path to where you cloned/downloaded the <code>RapidPT</code> repository, and also load the data you will be working with. The data matrix needs to be an <code>NxV</code>, where <code>N</code> is the total number of subjects and V is the number of voxel statistics per subject.</p>
+
+<pre><code>RapidPTLibraryPath = '.';
+addpath(RapidPTLibraryPath);
+dataPath = 'PATH TO DATA'; 
+load(dataPath);
+</code></pre>
+</li>
+<li>
+<p>Set number of permutations and the number of subjects in either group 1 or 2 (it does not matter which one you specify).</p>
+
+<pre><code>numPermutations = 5000;
+nGroup1 = 25; % You should what is the size of one of your groups prior.
+</code></pre>
+</li>
+<li><p>Set <code>write</code>. If set to 0, outputs will only contain the constructed maximum null distribution. If set to 1, the outputs struct will contain the basis matrix, <code>U</code>, and coefficient matrix <code>W</code>. <code>U*W</code> recover the permutation matrix. For an in depth explanation see the references. </p></li>
+<li>
+<p>Call <code>TwoSampleRapidPT.m</code>. <code>outputs</code> is a struct containing <code>outputs.MaxT</code>,<code>outputs.U</code>, and <code>outputs.W</code>. <code>timings</code> is a struct containing timing information of different part of <code>RapidPT</code> as well as the total timing.</p>
+
+<pre><code>[outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
+</code></pre>
+</li>
+<li><p>Optionally save <code>outputs</code> and <code>timings</code>.</p></li>
+<li>
+<p>Get the t-threshold estimate from the recovered maximum null distribution.</p>
+
+<pre><code>alpha_threshold = 1; % 1 percent
+t_threshold = GetTThresh(outputs.MaxT, alpha_threshold);
+</code></pre>
+</li>
+<li><p>If you have the labels of the data available, you can calculate the two-sample t-test and see compare the result of each voxel to the t-threshold and see which voxels exhibit statistically significant activity.</p></li>
+</ol>
+
+<h4>
+<a id="example_rapidptm-1" class="anchor" href="#example_rapidptm-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>Example_RapidPT.m</code>
+</h4>
+
+<p>Take a look at the header comments of <code>RapidPT.m</code> and the comments in <code>Example_RapidPT.m</code> to see how to directly call <code>RapidPT.m</code>. It is recommended to use <code>TwoSampleRapidPT.m</code> in order to avoid hyperparameter tuning.</p>
 
 <p><a name="references"></a></p>
 
