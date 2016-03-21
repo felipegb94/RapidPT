@@ -43,13 +43,15 @@
 % %     inputs.display = 1;
 % %     outputs = Efficient_PT(inputs);
 
-function [ outputs, timings ] = RapidPT( inputs )
+function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
 % RapidPermutationTesting 
 %   Modified permutation testing algorithm described in the following paper
 %   Speeding up Permutation Testing in Neuroimaging  C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh, NIPS 2013
     
     fprintf('Starting RapidPermutationTesting...\n');
     tTotal = tic;
+    fprintf('Adding Paths...\n');
+    AddPaths(rapidPTLibraryPath);
     fprintf('\nStarting Preprocessing...\n');
     fprintf('Validate Required Inputs...\n');
     ValidateInputs(inputs);
@@ -57,10 +59,8 @@ function [ outputs, timings ] = RapidPT( inputs )
     dataSquared = data.*data;
     %labels = inputs.labels;
     nGroup1 = inputs.nGroup1;
-    rapidPTLibraryPath = inputs.rapidPTLibraryPath;
     
-    fprintf('Adding Paths...\n');
-    AddPaths(rapidPTLibraryPath);
+
     
     fprintf('Processing Input Parameters...\n');
     N = size(data,1); % N: number of instances/subjects (rows in data matrix)

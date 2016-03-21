@@ -35,7 +35,6 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     [N,V] = size(Data);
 
     % Set keys for input struct
-    libraryPathKey = 'rapidPTLibraryPath';
     testingTypeKey = 'testingType';
     dataKey = 'data';
     %labelsKey = 'labels';
@@ -69,8 +68,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     trainNumVal = {ceil(N/2)}; % Number of permutations for training.
 
 
-    inputs = struct(libraryPathKey, RapidPTLibraryPath,...
-                    testingTypeKey, testingTypeVal,...
+    inputs = struct(testingTypeKey, testingTypeVal,...
                     dataKey, Data,...
                     nGroup1Key, nGroup1Val,...
                     subKey, subVal,...
@@ -81,7 +79,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
                     iterKey, iterVal,...
                     writingKey, writingVal);
             
-    [outputs, timings] = RapidPT(inputs);
+    [outputs, timings] = RapidPT(inputs, RapidPTLibraryPath);
 
     
 end
