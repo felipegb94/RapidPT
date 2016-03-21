@@ -1,36 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Rapidpt : Rapid Permutation Testing using Matrix Completion Methods">
+    <title>Rapidpt by felipegb94</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Rapidpt</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rapidpt</h1>
+        <p>Rapid Permutation Testing using Matrix Completion Methods</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/felipegb94/RapidPT">View on GitHub</a>
+        <p class="view"><a href="https://github.com/felipegb94/RapidPT">View the Project on GitHub <small>felipegb94/RapidPT</small></a></p>
 
-          <h1 id="project_title">Rapidpt</h1>
-          <h2 id="project_tagline">Rapid Permutation Testing using Matrix Completion Methods</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/felipegb94/RapidPT/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/felipegb94/RapidPT/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+        <ul>
+          <li><a href="https://github.com/felipegb94/RapidPT/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/felipegb94/RapidPT/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/felipegb94/RapidPT">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
 <a id="rapidpt" class="anchor" href="#rapidpt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RapidPT</h1>
 
@@ -57,9 +54,9 @@
 
 <p><strong>RapidPT</strong> is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. </p>
 
-<p><strong>1. Fast:</strong> RapidPT has shown speedups ranging from 30-90x faster than simple permutation testing implementations, and 3-6x faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The speedups against SnPM are seen when the number of permutations being done exceeds 10,000.</p>
+<p><strong>1. Fast:</strong> RapidPT has shown speedups ranging from <strong>30-90x</strong> faster than simple permutation testing implementations, and <strong>3-6x</strong> faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The larger speedups are seen when the number of permutations being done exceeds 10,000, and the size of the dataset is larger than 20 subjects.</p>
 
-<p><strong>2. Reliable:</strong> RapidPT has been validated against SnPM and a personal permutation testing implementation. The validation was done by comparing the KL-Divergence and p-values of the maximum-null distribution recovered by each software. More than 200 validation runs have been done with various neuroimaging datasets composed from 10 up to 400 subjects. </p>
+<p><strong>2. Reliable:</strong> RapidPT has been validated against SnPM and a personal permutation testing implementation. The validation was done by comparing the KL-Divergence and p-values of the maximum-null distribution recovered by each software. More than <strong>200 validation runs</strong> have been done with various neuroimaging datasets composed from 10 up to 400 subjects. </p>
 
 <p><strong>3. Hardware Independent:</strong> It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by many orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops.</p>
 
@@ -83,7 +80,13 @@ RapidPT can be used for the nonparametric statistical analysis of neuroimaging d
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
 
 <p>
-Simply clone the repository</p>
+Simply clone the repository and add the path of the repository inside your program to be able to call the functions.</p>
+
+<pre><code>addpath('PATH_WHERE_YOU_CLONED_THE_REPOSITORY');
+%% YOUR MATLAB PROGRAM GOES HERE. 
+</code></pre>
+
+<p>If you don't want to have the <code>addpath</code> line in every program you make, you can have it in your <code>startup.m</code> file for you MATLAB setup.</p>
 
 <p><a name="codeorganization"></a></p>
 
@@ -157,17 +160,12 @@ RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, 
 
 <p>C. Hinrichs, V. K. Ithapu, Q. Sun, V. Singh, S. C. Johnson, Speeding up Permutation Testing in Neuroimaging, Neural Information Processing Systems (NIPS), 2013.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Rapidpt maintained by <a href="https://github.com/felipegb94">felipegb94</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/felipegb94">felipegb94</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
