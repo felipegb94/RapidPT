@@ -13,7 +13,8 @@ function [ indexMatrix, permutationMatrix1, permutationMatrix2 ] = TwoSampleGetP
 %
 %   * permutationMatrix2: Same as permutationMatrix2 but for group 2
 %   instead of 1.
-    rng shuffle;
+    rng('default');
+    rng('shuffle');
     indexMatrix = zeros(numPermutations, N); 
     permutationMatrix1 = zeros(numPermutations, N);
     permutationMatrix2 = zeros(numPermutations, N);
