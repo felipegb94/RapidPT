@@ -5,7 +5,8 @@
 3. [Setup](#setup)
 4. [Usage](#usage)
 5. [Code Organization](#codeorganization)
-6. [References](#references)
+6. [Warnings](#warnings)
+7. [References](#references)
 
 
 <a name="overview">
@@ -105,6 +106,12 @@ These are the default directories used to output the resulting max-null distribu
 ### util/
 This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
   
+<a name="warnings">
+## Warnings
+</a>
+RapidPT has been extensively tested on medium and large datasets (20+ subjects) of a specific flavor. The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours.
+
+ 
 <a name="references">
 ## References
 </a>
