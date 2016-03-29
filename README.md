@@ -4,9 +4,10 @@
 2. [Use Cases](#usecases)
 3. [Setup](#setup)
 4. [Usage](#usage)
-5. [Code Organization](#codeorganization)
-6. [Warnings](#warnings)
-7. [References](#references)
+5. [Usage within SnPM] (#usagesnpm)
+6. [Code Organization](#codeorganization)
+7. [Warnings](#warnings)
+8. [References](#references)
 
 
 <a name="overview">
@@ -79,6 +80,55 @@ There are two ways to use the core of RapidPT, either by calling the wrapper fun
 
 #### `Example_RapidPT.m`
 Take a look at the header comments of `RapidPT.m` and the comments in `Example_RapidPT.m` to see how to directly call `RapidPT.m`. It is recommended to use `TwoSampleRapidPT.m` in order to avoid hyperparameter tuning.
+
+<a name="usagesnpm">
+## Usage within SnPM
+</a>
+Currently to use RapidPT with SnPM you will have to download my fork of SnPM (my personal copy of SnPM). You have to go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
+
+```
+cd WHEREVER YOUR SPM DOWNLOAD IS
+cd spm12/toolbox/
+git clone https://github.com/felipegb94/SnPM-devel.git
+cd SnPM-devel/
+```
+
+Then we have to make a quick change to `snpm_cp.m` in order to be able to use RapidPT. In line `781` you will have to change the `RapidPT_path = ~/PermTest/RapidPT/` variable to the path where you downloaded `RapidPT`. For example, you can do the following
+
+```
+cd ~/
+git clone https://github.com/felipegb94/RapidPT.git
+```
+
+Here we just downloaded RapidPT to you home folder, and then go into `snpm_cp.m` and change the `RapidPT_path` variable:
+
+```
+RapidPT_path = ~/RapidPT/
+```
+
+Save `snpm_cp.m` and, now in the MATLAB command line you can launch SPM and use RapidPT.
+
+```
+spm fmri
+```
+
+Now follow these steps:
+
+1. Go to SPM Menu window.
+2. Click on Batch and go to the batch window that just opened.
+3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
+4. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
+5. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be.
+6. Go to SPM, then `Tools/SnPM/Compute`
+7. Set the SnPM cfg file to the one you just made by clicking on the run button.
+8. Click the green run button again, and now SnPM will run with RapidPT.
+9. The resulting Maximum Null Distribution will be in the outputs folder you specified in step 4 and it will be called `MaxT.m`. You can use this and follow the `Example_Postprocess.m` to determine if there is group differences or not.
+
+####Improtant Notes (PLEASE READ BEFORE USING):
+* RapidPT is only available for TwoSample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
+
+* I integrated RapidPT into SnPM for users to be able to take advantages of SPM/SnPM graphical user interface and pre-processing. If you run SnPM with RapitPT, however, you will not be able to take advantage of any of SnPM/SPM postprocessing features because RapidPT when doing the permutation tests does not generate all of the required data for SnPM to use. If RapidPT is fully integrated into SnPM, then we will make sure that the post-processing capabilities of SnPM are also available.
+
 
 
 <a name="codeorganization">
