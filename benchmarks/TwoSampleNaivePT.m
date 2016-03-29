@@ -1,4 +1,4 @@
-function [ MaxT ] = TwoSamplePermTest_Naive(data, labels, N1)
+function [ MaxT ] = TwoSampleNaivePT(data, labels, N1)
 %TwoSamplePermTest_Naive Summary of this function goes here
 %   Detailed explanation goes here
 

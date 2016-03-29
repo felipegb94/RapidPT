@@ -54,14 +54,13 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
 
     testingTypeVal = {'TwoSample'};
     
-%     if(numPermutation < 10000)      
-%         subVal = {0.01};
-%     elseif(numPermutations < 50000) 
-%         subVal = {0.005}; 
-%     else
-%         subVal = {0.004};
-%     end
-subVal = 0.9;
+    if(numPermutation < 10000)      
+        subVal = {0.01};
+    elseif(numPermutations < 50000) 
+        subVal = {0.005}; 
+    else
+        subVal = {0.004};
+    end
     
     maxCyclesVal = {3}; % Number of cycles for training.
     iterVal = {30}; % Number of iterations for matrix completion.
@@ -75,7 +74,13 @@ subVal = 0.9;
     TVal = {numPermutations}; % Number of Permutations.
     maxRankVal = {N}; % Rank for estimating the low rank subspace
 
-    trainNumVal = {ceil(N/2)}; % Number of permutations for training.
+    if(N < 50)
+        trainNumVal = {N};
+    elseif(N < 75)
+        trainNumVal = {ceil(3*N/4)};
+    else
+        trainNumVal = {ceil(N/2)}; % Number of permutations for training.
+    end
 
 
     inputs = struct(testingTypeKey, testingTypeVal,...
