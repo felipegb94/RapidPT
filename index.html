@@ -1,37 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Rapidpt : Rapid Permutation Testing using Matrix Completion Methods">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Rapidpt</title>
+    <meta charset="UTF-8">
+    <title>Rapidpt by felipegb94</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">Rapidpt</h1>
+      <h2 class="project-tagline">Rapid Permutation Testing using Matrix Completion Methods</h2>
+      <a href="https://github.com/felipegb94/RapidPT" class="btn">View on GitHub</a>
+      <a href="https://github.com/felipegb94/RapidPT/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/felipegb94/RapidPT/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/felipegb94/RapidPT">View on GitHub</a>
-
-          <h1 id="project_title">Rapidpt</h1>
-          <h2 id="project_tagline">Rapid Permutation Testing using Matrix Completion Methods</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/felipegb94/RapidPT/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/felipegb94/RapidPT/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="rapidpt" class="anchor" href="#rapidpt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RapidPT</h1>
 
 <h2>
@@ -42,6 +30,7 @@
 <li><a href="#usecases">Use Cases</a></li>
 <li><a href="#setup">Setup</a></li>
 <li><a href="#usage">Usage</a></li>
+<li><a href="#usagesnpm">Usage within SnPM</a></li>
 <li><a href="#codeorganization">Code Organization</a></li>
 <li><a href="#warnings">Warnings</a></li>
 <li><a href="#references">References</a></li>
@@ -145,6 +134,59 @@ t_threshold = GetTThresh(outputs.MaxT, alpha_threshold);
 
 <p>Take a look at the header comments of <code>RapidPT.m</code> and the comments in <code>Example_RapidPT.m</code> to see how to directly call <code>RapidPT.m</code>. It is recommended to use <code>TwoSampleRapidPT.m</code> in order to avoid hyperparameter tuning.</p>
 
+<p><a name="usagesnpm"></a></p>
+
+<h2>
+<a id="usage-within-snpm" class="anchor" href="#usage-within-snpm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage within SnPM</h2>
+
+<p>
+Currently to use RapidPT with SnPM you will have to download my fork of SnPM (my personal copy of SnPM). You have to go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:</p>
+
+<pre><code>cd WHEREVER YOUR SPM DOWNLOAD IS
+cd spm12/toolbox/
+git clone https://github.com/felipegb94/SnPM-devel.git
+cd SnPM-devel/
+</code></pre>
+
+<p>Then we have to make a quick change to <code>snpm_cp.m</code> in order to be able to use RapidPT. In line <code>781</code> you will have to change the <code>RapidPT_path = ~/PermTest/RapidPT/</code> variable to the path where you downloaded <code>RapidPT</code>. For example, you can do the following</p>
+
+<pre><code>cd ~/
+git clone https://github.com/felipegb94/RapidPT.git
+</code></pre>
+
+<p>Here we just downloaded RapidPT to you home folder, and then go into <code>snpm_cp.m</code> and change the <code>RapidPT_path</code> variable:</p>
+
+<pre><code>RapidPT_path = ~/RapidPT/
+</code></pre>
+
+<p>Save <code>snpm_cp.m</code> and, now in the MATLAB command line you can launch SPM and use RapidPT.</p>
+
+<pre><code>spm fmri
+</code></pre>
+
+<p>Now follow these steps:</p>
+
+<ol>
+<li>Go to SPM Menu window.</li>
+<li>Click on Batch and go to the batch window that just opened.</li>
+<li>On the navigation bar click on SPM, then <code>tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject</code>.</li>
+<li>Here you will be able to specifiy a folder where you want your outputs to be (<code>Analysis Directory</code>), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. </li>
+<li>Click the green run button. This creates an SnPM config file in the path where you want your outputs to be.</li>
+<li>Go to SPM, then <code>Tools/SnPM/Compute</code>
+</li>
+<li>Set the SnPM cfg file to the one you just made by clicking on the run button.</li>
+<li>Click the green run button again, and now SnPM will run with RapidPT.</li>
+<li>The resulting Maximum Null Distribution will be in the outputs folder you specified in step 4 and it will be called <code>MaxT.m</code>. You can use this and follow the <code>Example_Postprocess.m</code> to determine if there is group differences or not.</li>
+</ol>
+
+<h4>
+<a id="improtant-notes-please-read-before-using" class="anchor" href="#improtant-notes-please-read-before-using" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Improtant Notes (PLEASE READ BEFORE USING):</h4>
+
+<ul>
+<li><p>RapidPT is only available for TwoSample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.</p></li>
+<li><p>I integrated RapidPT into SnPM for users to be able to take advantages of SPM/SnPM graphical user interface and pre-processing. If you run SnPM with RapitPT, however, you will not be able to take advantage of any of SnPM/SPM postprocessing features because RapidPT when doing the permutation tests does not generate all of the required data for SnPM to use. If RapidPT is fully integrated into SnPM, then we will make sure that the post-processing capabilities of SnPM are also available.</p></li>
+</ul>
+
 <p><a name="codeorganization"></a></p>
 
 <h2>
@@ -217,18 +259,15 @@ RapidPT has been extensively tested on medium and large datasets (20+ subjects) 
 RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, presented at NIPS, 2013.</p>
 
 <p>C. Hinrichs, V. K. Ithapu, Q. Sun, V. Singh, S. C. Johnson, Speeding up Permutation Testing in Neuroimaging, Neural Information Processing Systems (NIPS), 2013.</p>
-      </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Rapidpt maintained by <a href="https://github.com/felipegb94">felipegb94</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/felipegb94/RapidPT">Rapidpt</a> is maintained by <a href="https://github.com/felipegb94">felipegb94</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
 
+  
   </body>
 </html>
