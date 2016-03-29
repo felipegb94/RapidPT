@@ -54,7 +54,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
 
     testingTypeVal = {'TwoSample'};
     
-    if(numPermutation < 10000)      
+    if(numPermutations < 10000)      
         subVal = {0.01};
     elseif(numPermutations < 50000) 
         subVal = {0.005}; 
