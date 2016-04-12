@@ -5,6 +5,11 @@
 3. [Setup](#setup)
 4. [Usage](#usage)
 5. [Usage within SnPM] (#usagesnpm)
+  * [Prerequisites](#snpmprerequisites)
+  * [SnPM + RapidPT Setup](#snpmrapidptsetup)
+  * [Usage](#snpmusage)
+  * [Outputs Info](#snpmoutputs)
+  * [Important Notes](#snpmnotes)
 6. [Code Organization](#codeorganization)
 7. [Warnings](#warnings)
 8. [References](#references)
@@ -84,12 +89,16 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 <a name="usagesnpm">
 ## Usage within SnPM
 </a>
+<a name="snpmprerequisites">
 ### Prerequistes
+</a>
 * [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). 
 * [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM.
 * Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
 
+<a name="snpmrapidptsetup">
 ### SnPM + RapidPT Setup
+</a>
 Currently to use RapidPT within SnPM you will have to [download my fork of SnPM](https://github.com/felipegb94/SnPM-devel) (personal copy of SnPM). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
 
 ```
@@ -120,6 +129,14 @@ RapidPT_path = ~/RapidPT/
 
 Save `snpm_cp.m` and, now in the MATLAB command line you can launch SPM and use RapidPT.
 
+<a name="snpmusage">
+### SnPM Usage
+</a>
+
+This would be a good time to read the important notes below. 
+
+Now that you have setup RapidPT within SnPM, SnPM will work very similar to before. Launch SPM,
+
 ```
 spm fmri
 ```
@@ -136,7 +153,9 @@ Now follow these steps:
 8. Click the green run button again, and now SnPM will run with RapidPT.
 9. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
 
+<a name="snpmoutputs">
 ### Outputs
+</a>
 Once you are done, inside your `analysis` directory you will find a folder called `outputs`. This folder contains the results from RapidPT:
 
 *  `MaxT.mat`: This is the recovered maximum null distribution.
@@ -147,7 +166,10 @@ Once you are done, inside your `analysis` directory you will find a folder calle
 *  `activeBrain_0.05.nii`: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences. 
 *  `timings.mat`: Contains some timing from rapidpt. 
 
-####Improtant Notes (PLEASE READ BEFORE USING):
+<a name="snpmnotes">
+###Improtant Notes (PLEASE READ BEFORE USING):
+</a>
+
 * RapidPT is only available for TwoSample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
 
 * I integrated RapidPT into SnPM for users to be able to take advantages of SPM/SnPM graphical user interface and pre-processing. If you run SnPM with RapitPT, however, you will not be able to take advantage of any of SnPM/SPM postprocessing features because RapidPT when doing the permutation tests does not generate all of the required data for SnPM to use. If RapidPT is fully integrated into SnPM, then we will make sure that the post-processing capabilities of SnPM are also available.
