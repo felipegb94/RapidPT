@@ -139,8 +139,23 @@ t_threshold = GetTThresh(outputs.MaxT, alpha_threshold);
 <h2>
 <a id="usage-within-snpm" class="anchor" href="#usage-within-snpm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage within SnPM</h2>
 
-<p>
-Currently to use RapidPT with SnPM you will have to download my fork of SnPM (my personal copy of SnPM). You have to go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:</p>
+<p></p>
+
+<h3>
+<a id="prerequistes" class="anchor" href="#prerequistes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequistes</h3>
+
+<ul>
+<li>
+<a href="http://www.fil.ion.ucl.ac.uk/spm/software/">SPM12</a> - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). </li>
+<li>
+<a href="http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image">NiFTI</a> - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM.</li>
+<li>Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.</li>
+</ul>
+
+<h3>
+<a id="snpm--rapidpt-setup" class="anchor" href="#snpm--rapidpt-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SnPM + RapidPT Setup</h3>
+
+<p>Currently to use RapidPT within SnPM you will have to <a href="https://github.com/felipegb94/SnPM-devel">download my fork of SnPM</a> (personal copy of SnPM). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:</p>
 
 <pre><code>cd WHEREVER YOUR SPM DOWNLOAD IS
 cd spm12/toolbox/
@@ -148,7 +163,12 @@ git clone https://github.com/felipegb94/SnPM-devel.git
 cd SnPM-devel/
 </code></pre>
 
-<p>Then we have to make a quick change to <code>snpm_cp.m</code> in order to be able to use RapidPT. In line <code>781</code> you will have to change the <code>RapidPT_path = ~/PermTest/RapidPT/</code> variable to the path where you downloaded <code>RapidPT</code>. For example, you can do the following</p>
+<p>Then we have to make a quick change to <code>snpm_cp.m</code> in order to be able to use RapidPT. In line <code>781</code> you will have to change </p>
+
+<pre><code>RapidPT_path = ~/PermTest/RapidPT/
+</code></pre>
+
+<p>to the path where you downloaded <code>RapidPT</code>. For example, you can do the following</p>
 
 <pre><code>cd ~/
 git clone https://github.com/felipegb94/RapidPT.git
@@ -171,13 +191,28 @@ git clone https://github.com/felipegb94/RapidPT.git
 <li>Click on Batch and go to the batch window that just opened.</li>
 <li>On the navigation bar click on SPM, then <code>tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject</code>.</li>
 <li>Here you will be able to specifiy a folder where you want your outputs to be (<code>Analysis Directory</code>), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. </li>
-<li>Click the green run button. This creates an SnPM config file in the path where you want your outputs to be.</li>
-<li>Go to SPM, then <code>Tools/SnPM/Compute</code>
+<li>Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.</li>
+<li>Go to SPM navigation bar again, then <code>Tools/SnPM/Compute</code>
 </li>
-<li>Set the SnPM cfg file to the one you just made by clicking on the run button.</li>
+<li>Set the SnPM cfg file to the one you just made by clicking on the run button. </li>
 <li>Click the green run button again, and now SnPM will run with RapidPT.</li>
-<li>The resulting Maximum Null Distribution will be in the outputs folder you specified in step 4 and it will be called <code>MaxT.m</code>. You can use this and follow the <code>Example_Postprocess.m</code> to determine if there is group differences or not.</li>
+<li>Once you are done, go to the directory that you selected as your <code>Analysis Directory</code> and look at the outputs.</li>
 </ol>
+
+<h3>
+<a id="outputs" class="anchor" href="#outputs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Outputs</h3>
+
+<p>Once you are done, inside your <code>analysis</code> directory you will find a folder called <code>outputs</code>. This folder contains the results from RapidPT:</p>
+
+<ul>
+<li> <code>MaxT.mat</code>: This is the recovered maximum null distribution.</li>
+<li> <code>SnPMt.mat</code>: This is the resulting test statistic calculated using the original labels of the data. </li>
+<li> <code>XYZ.mat</code>: This matrix has the x, y, z coordinates associated to each voxel.</li>
+<li> <code>params.mat</code>: This structure contains the following parameters of the permutation testing run: nPerm (number of permutations), N (number of subjects), V (number of voxels after preprocessing), xdim, ydim, zdim.</li>
+<li> <code>coords_activeBrain_0.05.mat</code>: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha = 0.05.</li>
+<li> <code>activeBrain_0.05.nii</code>: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences. </li>
+<li> <code>timings.mat</code>: Contains some timing from rapidpt. </li>
+</ul>
 
 <h4>
 <a id="improtant-notes-please-read-before-using" class="anchor" href="#improtant-notes-please-read-before-using" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Improtant Notes (PLEASE READ BEFORE USING):</h4>
