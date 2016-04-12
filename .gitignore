@@ -1,3 +1,4 @@
 *.swp
 outputs
 timings
+include/nifti
