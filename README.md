@@ -84,7 +84,13 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 <a name="usagesnpm">
 ## Usage within SnPM
 </a>
-Currently to use RapidPT with SnPM you will have to download my fork of SnPM (my personal copy of SnPM). You have to go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
+### Prerequistes
+* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). 
+* [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM.
+* Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
+
+### SnPM + RapidPT Setup
+Currently to use RapidPT within SnPM you will have to [download my fork of SnPM](https://github.com/felipegb94/SnPM-devel) (personal copy of SnPM). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
 
 ```
 cd WHEREVER YOUR SPM DOWNLOAD IS
@@ -93,7 +99,13 @@ git clone https://github.com/felipegb94/SnPM-devel.git
 cd SnPM-devel/
 ```
 
-Then we have to make a quick change to `snpm_cp.m` in order to be able to use RapidPT. In line `781` you will have to change the `RapidPT_path = ~/PermTest/RapidPT/` variable to the path where you downloaded `RapidPT`. For example, you can do the following
+Then we have to make a quick change to `snpm_cp.m` in order to be able to use RapidPT. In line `781` you will have to change 
+
+```
+RapidPT_path = ~/PermTest/RapidPT/
+```
+
+to the path where you downloaded `RapidPT`. For example, you can do the following
 
 ```
 cd ~/
@@ -118,11 +130,22 @@ Now follow these steps:
 2. Click on Batch and go to the batch window that just opened.
 3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
 4. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
-5. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be.
-6. Go to SPM, then `Tools/SnPM/Compute`
-7. Set the SnPM cfg file to the one you just made by clicking on the run button.
+5. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.
+6. Go to SPM navigation bar again, then `Tools/SnPM/Compute`
+7. Set the SnPM cfg file to the one you just made by clicking on the run button. 
 8. Click the green run button again, and now SnPM will run with RapidPT.
-9. The resulting Maximum Null Distribution will be in the outputs folder you specified in step 4 and it will be called `MaxT.m`. You can use this and follow the `Example_Postprocess.m` to determine if there is group differences or not.
+9. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
+
+### Outputs
+Once you are done, inside your `analysis` directory you will find a folder called `outputs`. This folder contains the results from RapidPT:
+
+*  `MaxT.mat`: This is the recovered maximum null distribution.
+*  `SnPMt.mat`: This is the resulting test statistic calculated using the original labels of the data. 
+*  `XYZ.mat`: This matrix has the x, y, z coordinates associated to each voxel.
+*  `params.mat`: This structure contains the following parameters of the permutation testing run: nPerm (number of permutations), N (number of subjects), V (number of voxels after preprocessing), xdim, ydim, zdim.
+*  `coords_activeBrain_0.05.mat`: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha = 0.05.
+*  `activeBrain_0.05.nii`: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences. 
+*  `timings.mat`: Contains some timing from rapidpt. 
 
 ####Improtant Notes (PLEASE READ BEFORE USING):
 * RapidPT is only available for TwoSample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
