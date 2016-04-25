@@ -28,8 +28,7 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png
 <table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png
-" alt="SpeedupNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png" alt="SpeedupNaivePT"/></td>
     <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSet_Speedups_160000.png" alt="SpeedupSnPM"/></td>
   </tr>
 </table>
