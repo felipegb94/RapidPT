@@ -184,8 +184,8 @@ Now follow these steps:
 2. Click on Batch and go to the batch window that just opened.
 <table style="width:100%">
   <tr>
-    <td></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch" alt="spmbatch"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
     <td></td>
   </tr>
 </table>
