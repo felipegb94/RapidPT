@@ -59,8 +59,6 @@
 
 <p><strong>1. Fast:</strong> RapidPT has shown speedups ranging from <strong>30-90x</strong> faster than simple permutation testing implementations, and <strong>3-6x</strong> faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The larger speedups are seen when the number of permutations being done exceeds 10,000, and the size of the dataset is larger than 20 subjects.</p>
 
-<p><a href="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png">https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png</a></p>
-
 <table>
   <tr>
     <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png" alt="SpeedupNaivePT"></td>
@@ -113,7 +111,9 @@ Simply clone the repository and add the path of the repository inside your progr
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>
-There are two ways to use the core of RapidPT, either by calling the wrapper function <code>TwoSampleRapidPT.m</code> or directly calling the core function <code>RapidPT.m</code>. <code>TwoSampleRapidPT</code> assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls <code>RapidPT</code>. On the other hand if you call <code>RapidPT</code> directly you will have to assign these parameters. Let's first go through <code>Example_TwoSampleRapidPT.m</code>:</p>
+RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules, right now. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI and pre processing and performs permutation testing using RapidPT. Please refer to the <a href="#usagesnpm">Usage Withing SnPM</a> section.</p>
+
+<p>There are two ways to use the core of RapidPT, either by calling the wrapper function <code>TwoSampleRapidPT.m</code> or directly calling the core function <code>RapidPT.m</code>. <code>TwoSampleRapidPT</code> assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls <code>RapidPT</code>. On the other hand if you call <code>RapidPT</code> directly you will have to assign these parameters. Let's first go through <code>Example_TwoSampleRapidPT.m</code>:</p>
 
 <h4>
 <a id="example_twosamplerapidptm" class="anchor" href="#example_twosamplerapidptm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>Example_TwoSampleRapidPT.m</code>
@@ -174,11 +174,9 @@ t_threshold = GetTThresh(outputs.MaxT, alpha_threshold);
 <p></p>
 
 <ul>
-<li>
-<a href="http://www.fil.ion.ucl.ac.uk/spm/software/">SPM12</a> - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). </li>
-<li>
-<a href="http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image">NiFTI</a> - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM.</li>
-<li>Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.</li>
+<li><p><a href="http://www.fil.ion.ucl.ac.uk/spm/software/">SPM12</a> - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their <a href="https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux">wiki</a>. If you have spm setup, running <code>spm fmri</code> in the MATLAB command line should launch a GUI such as the one shown in the section <a href="#snpmusage">snpm usage</a>.</p></li>
+<li><p><a href="http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image">NiFTI</a> - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. <code>addpath('NiFTI toolset path')</code>.</p></li>
+<li><p>Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.</p></li>
 </ul>
 
 <p><a name="snpmrapidptsetup"></a></p>
@@ -206,7 +204,7 @@ cd SnPM-devel/
 git clone https://github.com/felipegb94/RapidPT.git
 </code></pre>
 
-<p>Here we just downloaded RapidPT to you home folder, and then go into <code>snpm_cp.m</code> and change the <code>RapidPT_path</code> variable:</p>
+<p>Here we just downloaded RapidPT to your home folder, and then go into <code>snpm_cp.m</code> and change the <code>RapidPT_path</code> variable:</p>
 
 <pre><code>RapidPT_path = ~/RapidPT/
 </code></pre>
@@ -231,8 +229,21 @@ git clone https://github.com/felipegb94/RapidPT.git
 
 <ol>
 <li>Go to SPM Menu window.</li>
-<li>Click on Batch and go to the batch window that just opened.</li>
-<li>On the navigation bar click on SPM, then <code>tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject</code>.</li>
+<li>
+<p>Click on Batch and go to the batch window that just opened.</p>
+
+<table>
+<tr>
+  <th align="center"><strong>SPM GUI</strong></th>
+  <th align="center"><strong>SPM Batch</strong></th>
+</tr>
+<tr>
+  <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"></td>
+  <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"></td>
+</tr>
+</table>
+</li>
+<li><p>On the navigation bar click on SPM, then <code>tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject</code>.</p></li>
 <li>Here you will be able to specifiy a folder where you want your outputs to be (<code>Analysis Directory</code>), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. </li>
 <li>Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.</li>
 <li>Go to SPM navigation bar again, then <code>Tools/SnPM/Compute</code>
@@ -255,10 +266,14 @@ Once you are done, inside your <code>analysis</code> directory you will find a f
 <li> <code>SnPMt.mat</code>: This is the resulting test statistic calculated using the original labels of the data. </li>
 <li> <code>XYZ.mat</code>: This matrix has the x, y, z coordinates associated to each voxel.</li>
 <li> <code>params.mat</code>: This structure contains the following parameters of the permutation testing run: nPerm (number of permutations), N (number of subjects), V (number of voxels after preprocessing), xdim, ydim, zdim.</li>
-<li> <code>coords_activeBrain_0.05.mat</code>: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha = 0.05.</li>
-<li> <code>activeBrain_0.05.nii</code>: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences. </li>
+<li> <code>coords_activeBrain_*.mat</code>: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha=0.5, 0.25, 0.1, 0.05 0.01]. These coordinates are used to generate the activeBrain nii files.</li>
+<li> <code>activeBrain_*.nii</code>: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences at a particular significance level (alpha=[0.5, 0.25, 0.1, 0.05 0.01]. </li>
 <li> <code>timings.mat</code>: Contains some timing from rapidpt. </li>
 </ul>
+
+<p>The following plot is a historgram of the Maxnull distribution in MaxT and a t-threshold associated to an alpha=0.05.</p>
+
+<p><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/recoveredMaxNull.png" alt="maxnull"></p>
 
 <p><a name="snpmnotes"></a></p>
 
