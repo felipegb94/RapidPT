@@ -32,12 +32,15 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
   </tr>
 </table>
 
-
-![SpeedupNaivePT](images/FirstSetNaivePT_Speedups_80000.png) ![SpeedupSnPM](images/FirstSet_Speedups_160000.png)
-
 **2. Reliable:** RapidPT has been validated against SnPM and a personal permutation testing implementation. The validation was done by comparing the KL-Divergence and p-values of the maximum-null distribution recovered by each software. More than **200 validation runs** have been done with various neuroimaging datasets composed from 10 up to 400 subjects. 
 
-![SpeedupSnPM](images/FirstSet_KLDiv_160000.png)
+<table style="width:100%">
+  <tr>
+    <td><img src="images/FirstSet_KLDiv_160000.png" alt="KLDivSnPM"/></td>
+    <td><img src="images/FirstSet_KLDivNaivePT_10000.png" alt="KLDivNaivePT"/></td>
+  </tr>
+</table>
+
 
 
 **3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by many orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops.
