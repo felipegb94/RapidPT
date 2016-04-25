@@ -60,6 +60,9 @@ If you don't want to have the `addpath` line in every program you make, you can 
 <a name="usage">
 ## Usage
 </a>
+RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules, right now. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI and pre processing and performs permutation testing using RapidPT. Please refer to the [Usage Withing SnPM](#usagesnpm) section.
+
+
 There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
 
 #### `Example_TwoSampleRapidPT.m`
