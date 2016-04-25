@@ -25,10 +25,12 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 **1. Fast:** RapidPT has shown speedups ranging from **30-90x** faster than simple permutation testing implementations, and **3-6x** faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The larger speedups are seen when the number of permutations being done exceeds 10,000, and the size of the dataset is larger than 20 subjects.
 
+https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png
 <table style="width:100%">
   <tr>
-    <td><img src="images/FirstSetNaivePT_Speedups_80000.png" alt="SpeedupNaivePT"/></td>
-    <td><img src="images/FirstSet_Speedups_160000.png" alt="SpeedupSnPM"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png
+" alt="SpeedupNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSet_Speedups_160000.png" alt="SpeedupSnPM"/></td>
   </tr>
 </table>
 
@@ -36,8 +38,8 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 <table style="width:100%">
   <tr>
-    <td><img src="images/FirstSet_KLDiv_160000.png" alt="KLDivSnPM"/></td>
-    <td><img src="images/FirstSet_KLDivNaivePT_10000.png" alt="KLDivNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSet_KLDiv_160000.png" alt="KLDivSnPM"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSet_KLDivNaivePT_10000.png" alt="KLDivNaivePT"/></td>
   </tr>
 </table>
 
