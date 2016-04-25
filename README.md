@@ -25,7 +25,6 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 **1. Fast:** RapidPT has shown speedups ranging from **30-90x** faster than simple permutation testing implementations, and **3-6x** faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The larger speedups are seen when the number of permutations being done exceeds 10,000, and the size of the dataset is larger than 20 subjects.
 
-https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png
 <table style="width:100%">
   <tr>
     <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/FirstSetNaivePT_Speedups_80000.png" alt="SpeedupNaivePT"/></td>
@@ -120,11 +119,15 @@ spm fmri
 ```
 and the SPM user interface should launch:
 
-<table style="height:50%;width:50%">
+<table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
+    <td></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui" style="width:40%"/></td>
+    <td></td>
+
   </tr>
 </table>
+
 
 * [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
 
@@ -178,7 +181,14 @@ spm fmri
 Now follow these steps:
 
 1. Go to SPM Menu window.
-2. Click on Batch and go to the batch window that just opened.<img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch" alt="spmbatch" align="center" />
+2. Click on Batch and go to the batch window that just opened.
+<table style="width:100%">
+  <tr>
+    <td></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch" alt="spmbatch"/></td>
+    <td></td>
+  </tr>
+</table>
 
 3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
 4. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
