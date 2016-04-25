@@ -112,21 +112,7 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 ### Prerequistes
 </a>
 
-* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm correctly setup, you should be able to run the following command in MATLAB:
-
-```
-spm fmri
-```
-and the SPM user interface should launch:
-
-<table style="width:100%">
-  <tr>
-    <td></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui" style="width:40%"/></td>
-    <td></td>
-
-  </tr>
-</table>
+* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm fmri` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
 
 
 * [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
@@ -184,9 +170,14 @@ Now follow these steps:
 2. Click on Batch and go to the batch window that just opened.
 <table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
-    <td></td>
+    <th align="center"><strong>SPM GUI</strong></th>
+    <th align="center"><strong>SPM Batch</strong></th>
+    <th align="center"><strong>SPM GUI</strong></th>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
   </tr>
 </table>
 
