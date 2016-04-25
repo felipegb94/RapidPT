@@ -112,8 +112,22 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 <a name="snpmprerequisites">
 ### Prerequistes
 </a>
-* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). 
-* [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM.
+
+* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm correctly setup, you should be able to run the following command in MATLAB:
+
+```
+spm fmri
+```
+and the SPM user interface should launch:
+
+<table style="width:50%">
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
+  </tr>
+</table>
+
+* [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
+
 * Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
 
 <a name="snpmrapidptsetup">
@@ -141,7 +155,7 @@ cd ~/
 git clone https://github.com/felipegb94/RapidPT.git
 ```
 
-Here we just downloaded RapidPT to you home folder, and then go into `snpm_cp.m` and change the `RapidPT_path` variable:
+Here we just downloaded RapidPT to your home folder, and then go into `snpm_cp.m` and change the `RapidPT_path` variable:
 
 ```
 RapidPT_path = ~/RapidPT/
@@ -164,7 +178,8 @@ spm fmri
 Now follow these steps:
 
 1. Go to SPM Menu window.
-2. Click on Batch and go to the batch window that just opened.
+2. Click on Batch and go to the batch window that just opened.<img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch" alt="spmbatch" align="center" />
+
 3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
 4. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
 5. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.
