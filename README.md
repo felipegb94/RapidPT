@@ -172,11 +172,9 @@ Now follow these steps:
   <tr>
     <th align="center"><strong>SPM GUI</strong></th>
     <th align="center"><strong>SPM Batch</strong></th>
-    <th align="center"><strong>SPM GUI</strong></th>
   </tr>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
     <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
   </tr>
 </table>
@@ -198,9 +196,13 @@ Once you are done, inside your `analysis` directory you will find a folder calle
 *  `SnPMt.mat`: This is the resulting test statistic calculated using the original labels of the data. 
 *  `XYZ.mat`: This matrix has the x, y, z coordinates associated to each voxel.
 *  `params.mat`: This structure contains the following parameters of the permutation testing run: nPerm (number of permutations), N (number of subjects), V (number of voxels after preprocessing), xdim, ydim, zdim.
-*  `coords_activeBrain_0.05.mat`: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha = 0.05.
-*  `activeBrain_0.05.nii`: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences. 
+*  `coords_activeBrain_*.mat`: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha=0.5, 0.25, 0.1, 0.05 0.01]. These coordinates are used to generate the activeBrain nii files.
+*  `activeBrain_*.nii`: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences at a particular significance level (alpha=[0.5, 0.25, 0.1, 0.05 0.01]. 
 *  `timings.mat`: Contains some timing from rapidpt. 
+
+The following plot is a historgram of the Maxnull distribution in MaxT and a t-threshold associated to an alpha=0.05.
+
+![maxnull](https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/recoveredMaxNull.png)
 
 <a name="snpmnotes">
 ###Improtant Notes (PLEASE READ BEFORE USING):
