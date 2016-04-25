@@ -120,7 +120,7 @@ spm fmri
 ```
 and the SPM user interface should launch:
 
-<table style="width:50%">
+<table style="height:50%;width:50%">
   <tr>
     <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
   </tr>
