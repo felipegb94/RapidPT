@@ -55,18 +55,15 @@ inputs = struct(testingTypeKey, testingTypeVal,...
                 maxCyclesKey, maxCyclesVal,...
                 iterKey, iterVal,...
                 writingKey, writingVal);
-outputs = 0;
-timings = 0;
-      
+        
+[outputs, timings] = RapidPT(inputs, RapidPTLibraryPath);
+
 % THESE TWO LINES HAVE TO BE CHANGED!! 
 save(strcat(saveOutPath,'params_',description,'.mat'),'params');
 save(strcat(saveOutPath,'outputs_',description,'.mat'),'outputs');
 save(strcat(saveTimePath,'timings_',description,'.mat'),'timings');
          
-             
-        
-%[outputs, timings] = RapidPT(inputs, RapidPTLibraryPath);
-           
+                
             
             
             
