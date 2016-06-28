@@ -105,8 +105,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
     
     for m = 1:1:maxCycles
         for f = 1:1:trainNum
-            r = randperm(V); 
-            inds = r(1:subV)'; 
+            inds = randperm(V,subV); 
             I_inds = TCurrent(framesOrder(f,m),inds)';
             [UHat, status, opts] = grasta_stream(I_inds, inds, UHat, status, options, opts);
             fprintf('Subspace estimation on %s cycle with %s frame \n',num2str(m),num2str(f));
@@ -119,8 +118,8 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
         Ts_tr = zeros(V,trainNum);
         for f = 1:1:trainNum
             Ts_ac(:,f) = TCurrent(framesOrder(f,m),:)';
-            r = randperm(V); 
-            inds = r(1:subV)'; 
+            inds = randperm(V,subV); 
+
             I_inds = Ts_ac(inds,f);
             % Time srp function
             [s, w, jnk] = admm_srp(UHat(inds,:), I_inds, opts2); 
@@ -144,11 +143,9 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
     tRecovery = tic;    
     
     W = cell(numPermutations,1); 
-    t = 1;
     % Calculate small portion of the permutation matrix
-    for i = 1:numPermutations
-        r = randperm(V); 
-        inds = r(1:subV)';
+    parfor i = 1:numPermutations
+        inds = randperm(V,subV)'; 
         [dummyMaxT, TCurrent] = TwoSamplePermTest(data(:,inds),...
                                                   dataSquared(:,inds),...
                                                   permutationMatrix1(i,:),...
@@ -157,8 +154,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
                                                   nGroup2);
         U_inds = UHat(inds,:);  
         [s, w, jnk] = admm_srp(U_inds, TCurrent', opts2);
-        W{t,1} = w; 
-        t = t + 1;
+        W{i,1} = w; 
         sAll = zeros(V,1); 
         sAll(inds) = sAll(inds) + s; 
         TRec = UHat*w + sAll + muFit;

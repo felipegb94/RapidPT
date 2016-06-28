@@ -3,7 +3,8 @@ RapidPTLibraryPath = '.';
 addpath(RapidPTLibraryPath);
 
 % Load input data and input labels
-dataPathVal = '~/PermTest/data/ADRC/TwoSample/ADRC_50_25_25.mat'; 
+%dataPathVal = '/nobackup/vamsi/PermTest/ExperimentsData/TwoSample/400_200_200.mat'; 
+dataPathVal = '../50_25_25.mat';
 load(dataPathVal);
 
 % N subjects, V voxels (or statistics)
@@ -24,7 +25,7 @@ writingKey = 'writing';
 
 % Set the corresponding values to the keys.
 testingTypeVal = {'TwoSample'};
-nGroup1Val = 25; % Size of group 1, VERY IMPORTANT 
+nGroup1Val = N / 2; % Size of group 1, VERY IMPORTANT 
 subVal = {0.005};  % Sampling Rate
 numPermutationsVal = {10000}; % Number of Permutations.
 maxRankVal = {N}; % Rank for estimating the low rank subspace
@@ -36,24 +37,36 @@ iterVal = {30}; % Number of iterations for matrix completion.
 % useful in certain cases.
 writingVal = {0};
 
+
+params.nPerm = numPermutationsVal{1};
+params.subV = subVal{1};
+params.trainNum = trainNumVal{1};
+description = strcat(num2str(params.nPerm),'_',num2str(params.subV),'_',num2str(params.trainNum));
+saveOutPath = '../outputs_parallel/';
+saveTimePath = '../timings_parallel/';
+
 inputs = struct(testingTypeKey, testingTypeVal,...
                 dataKey, Data,...
                 nGroup1Key, nGroup1Val,...
                 subKey, subVal,...
-                TKey, TVal,...
+                numPermutationsKey, numPermutationsVal,...
                 maxRankKey, maxRankVal,...
                 trainNumKey, trainNumVal,...
                 maxCyclesKey, maxCyclesVal,...
                 iterKey, iterVal,...
                 writingKey, writingVal);
-            
-[outputs, timings] = RapidPT(inputs, RapidPTLibraryPath);
-               
+outputs = 0;
+timings = 0;
+      
 % THESE TWO LINES HAVE TO BE CHANGED!! 
-save(strcat('outputs/outputs_RapidPT_',num2str(numPermutations),'.mat'),'outputs');
-save(strcat('timings/timings_RapidPT_',num2str(numPermutations),'.mat'),'timings');
+save(strcat(saveOutPath,'params_',description,'.mat'),'params');
+save(strcat(saveOutPath,'outputs_',description,'.mat'),'outputs');
+save(strcat(saveTimePath,'timings_',description,'.mat'),'timings');
          
-            
+             
+        
+%[outputs, timings] = RapidPT(inputs, RapidPTLibraryPath);
+           
             
             
             
