@@ -75,23 +75,25 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
     
     fprintf('Initializing permutation matrices... \n');
     % indexMatrix is what indexMatrix used to be..
-    [~, permutationMatrix1, permutationMatrix2] = TwoSampleGetPermutationMatrices(numPermutations, N, nGroup1);
+    [indexMatrix, permutationMatrix1, permutationMatrix2] = TwoSampleGetPermutationMatrices(numPermutations, N, nGroup1);
    
     binRes = 0.05; 
     maxnullBins = -9:binRes:9; %% bin resolution in maxnull histogram computation
     subV = round(sub*V); %% number of samples used per permutation
+    subBatch = trainNum; %% number of permutations handled at once -- for commputational ease
+    batches = ceil(numPermutations/subBatch); %% number of such batches
     maxTStatistics = zeros(1, numPermutations); %% estimated max statistics for all permutations
 
 %% Training for low rank subsapace and residual priors
 
-    fprintf('\nStarting RapidPT core...\n');
+    fprintf('\nStarting Algorithm...\n');
     fprintf('Training for low rank subspace and residual priors \n');
     tTraining = tic;
 
-    permutationMatrix1Current = permutationMatrix1(1:trainNum,:);
-    permutationMatrix2Current = permutationMatrix2(1:trainNum,:);
+    permutationMatrix1Current = permutationMatrix1(1:1:trainNum,:);
+    permutationMatrix2Current = permutationMatrix2(1:1:trainNum,:);
     % Calculate some full permutations for training U (A good number would be the number of labels).
-    [TCurrent] = TwoSamplePermTest(data, dataSquared, permutationMatrix1Current, permutationMatrix2Current, nGroup1, nGroup2);
+    [dummyMaxT, TCurrent] = TwoSamplePermTest(data, dataSquared, permutationMatrix1Current, permutationMatrix2Current, nGroup1, nGroup2 );
     
     framesOrder = zeros(trainNum, maxCycles);
     for m = 1:1:maxCycles
@@ -120,7 +122,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
 
             I_inds = Ts_ac(inds,f);
             % Time srp function
-            [s, w, ~] = admm_srp(UHat(inds,:), I_inds, opts2); 
+            [s, w, jnk] = admm_srp(UHat(inds,:), I_inds, opts2); 
             sall = zeros(V,1); 
             sall(inds) = s; 
             Ts_tr(:,f) = (UHat*w + sall)';
@@ -131,7 +133,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
         diffForNormal(:,m) = max_Ts_ac - max_Ts_tr;
     end
 
-    [muFit,~] = normfit(diffForNormal(:));
+    [muFit,varFit] = normfit(diffForNormal(:));
 
     tTraining = toc(tTraining);
     timings.tTraining = tTraining;
@@ -140,26 +142,26 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
     fprintf('\n Recovering the subspace coefficients and residuals for all permutations \n');
     tRecovery = tic;    
     
-    
-    %W = cell(numPermutations,1); 
+    W = cell(numPermutations,1); 
     % Calculate small portion of the permutation matrix
     parfor i = 1:numPermutations
         inds = randperm(V,subV)'; 
-        [TCurrent] = TwoSamplePermTest(data(:,inds),...
-                                       dataSquared(:,inds),...
-                                       permutationMatrix1(i,:),...
-                                       permutationMatrix2(i,:),...
-                                       nGroup1,...
-                                       nGroup2);
+        [dummyMaxT, TCurrent] = TwoSamplePermTest(data(:,inds),...
+                                                  dataSquared(:,inds),...
+                                                  permutationMatrix1(i,:),...
+                                                  permutationMatrix2(i,:),...
+                                                  nGroup1,...
+                                                  nGroup2);
         U_inds = UHat(inds,:);  
-        [s, w, ~] = admm_srp(U_inds, TCurrent', opts2);
-        %W{i,1} = w; 
-        TRec = UHat*w;
-        TRec(inds) = TRec(inds) + s;
-        maxTStatistics(1,i) = max(TRec) + muFit;
-        fprintf('Completion done on trial %d/%d (block %d) \n',i,numPermutations);  
+        [s, w, jnk] = admm_srp(U_inds, TCurrent', opts2);
+        W{i,1} = w; 
+        sAll = zeros(V,1); 
+        sAll(inds) = sAll(inds) + s; 
+        TRec = UHat*w + sAll + muFit;
+        maxTStatistics(1,i) = max(TRec);
+        fprintf('Completion done on trial %d/%d (block %d) \n',i,numPermutations,ceil(i/subBatch));  
     end
-    
+
     % Save timings
     timings.tRecovery = toc(tRecovery);
     
@@ -168,7 +170,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
 
     if write == 1 
         outputs.U = UHat; 
-        %outputs.W = W; 
+        outputs.W = W; 
     end
     
     fprintf('TwoSampleRapidPT Done...');
@@ -176,13 +178,17 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
 
 end
 
-function [tStatMatrix] = TwoSamplePermTest(data, dataSquared, permutationMatrix1, permutationMatrix2, nGroup1, nGroup2)
+function [ MaxT, tStatMatrix ] = TwoSamplePermTest(data, dataSquared, permutationMatrix1, permutationMatrix2, nGroup1, nGroup2)
+    
+    numPermutations = size(permutationMatrix1, 1);
+    MaxT = zeros(numPermutations,1);
     
     g1Mean = (permutationMatrix1 * data)/nGroup1;
     g2Mean = (permutationMatrix2 * data)/nGroup2;
     g1Var = (permutationMatrix1 * dataSquared)/(nGroup1) - (g1Mean.*g1Mean);
     g2Var = (permutationMatrix2 * dataSquared)/(nGroup2) - (g2Mean.*g2Mean);
     tStatMatrix = (g1Mean - g2Mean) ./ (sqrt((g1Var./(nGroup1-1)) + (g2Var./(nGroup2-1))));
+    MaxT(:,1) = max(tStatMatrix,[],2);        
 
 end
 

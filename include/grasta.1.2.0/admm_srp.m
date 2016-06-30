@@ -59,8 +59,9 @@ y = zeros(m,1);
 mu = 1.25/norm(v);
 
 % precompute static variables for a-update (projection on to Ua=v-s)
-P = (U'*U) \ (U');
-
+Ut = U';
+P = Ut * U \ Ut;
+ 
 
 %% ADMM solver
 

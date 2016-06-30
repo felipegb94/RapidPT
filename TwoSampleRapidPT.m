@@ -55,9 +55,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     testingTypeVal = {'TwoSample'};
     
     if(numPermutations < 10000)      
-        subVal = {0.01};
-    elseif(numPermutations < 50000) 
-        subVal = {0.005}; 
+        subVal = {0.005};
     else
         subVal = {0.004};
     end
@@ -70,7 +68,6 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
 
     nGroup1Val = nGroup1; % Size of group 1
     assert(N > nGroup1, 'nGroup1 cannot be larger than the number of subjects in the data');
-    %nGroup2Val = N - nGroup1; % Size of group 2
     TVal = {numPermutations}; % Number of Permutations.
     maxRankVal = {N}; % Rank for estimating the low rank subspace
 

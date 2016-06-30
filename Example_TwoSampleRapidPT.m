@@ -16,5 +16,5 @@ write = 0;
 
 [outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
-save(strcat('outputs/outputs_TwoSampleFace_',num2str(numPermutations),'.mat'),'outputs');
-save(strcat('timings/timings_TwoSampleFace_',num2str(numPermutations),'.mat'),'timings');
+save(strcat('outputs/outputs_',num2str(numPermutations),'.mat'),'outputs');
+save(strcat('timings/timings_',num2str(numPermutations),'.mat'),'timings');

@@ -3,7 +3,6 @@ RapidPTLibraryPath = '.';
 addpath(RapidPTLibraryPath);
 
 % Load input data and input labels
-%dataPathVal = '/nobackup/vamsi/PermTest/ExperimentsData/TwoSample/400_200_200.mat'; 
 dataPathVal = '../50_25_25.mat';
 load(dataPathVal);
 
@@ -27,7 +26,7 @@ writingKey = 'writing';
 testingTypeVal = {'TwoSample'};
 nGroup1Val = N / 2; % Size of group 1, VERY IMPORTANT 
 subVal = {0.005};  % Sampling Rate
-numPermutationsVal = {10000}; % Number of Permutations.
+numPermutationsVal = {5000}; % Number of Permutations.
 maxRankVal = {N}; % Rank for estimating the low rank subspace
 trainNumVal = {ceil(N/2)}; % Number of permutations for training.
 maxCyclesVal = {3}; % Number of cycles for training.
