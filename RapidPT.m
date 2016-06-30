@@ -157,7 +157,7 @@ function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
         TRec = UHat*w;
         TRec(inds) = TRec(inds) + s;
         maxTStatistics(1,i) = max(TRec) + muFit;
-        fprintf('Completion done on trial %d/%d (block %d) \n',i,numPermutations);  
+        fprintf('Completion done on trial %d/%d  \n',i,numPermutations);  
     end
     
     % Save timings

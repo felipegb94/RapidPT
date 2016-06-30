@@ -1,3 +1,7 @@
+numCoresAvail = feature('numCores');
+pool = parpool(numCoresAvail)
+pool.IdleTimeout = 1000;
+
 % Addpath RapidPT Repository Path (current working dir in this case)
 RapidPTLibraryPath = '../';
 addpath(RapidPTLibraryPath);
@@ -11,9 +15,9 @@ load(dataPathVal);
 % N subjects, V voxels (or statistics)
 [N,V] = size(Data);
 subVals = [0.001, 0.0035, 0.005, 0.007, 0.01, 0.05];
-numSubVals = size(subVals,1);
-trainNumVals = [N/2, 3*N/4, N, 2*N];
-numTrainNumVals = size(trainNumVals,1);
+numSubVals = size(subVals,2);
+trainNumVals = [floor(3*N/4), floor(N/2), N, 2*N];
+numTrainNumVals = size(trainNumVals,2);
 
 % Set keys for input struct
 testingTypeKey = 'testingType';
@@ -73,7 +77,7 @@ for i = 1:numSubVals
     end
 end
 
-
+delete(pool);
          
                 
             
