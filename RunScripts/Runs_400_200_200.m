@@ -51,8 +51,8 @@ for i = 1:numSubVals
     subVal = {subVals(i)};
     params.subV = subVals(i);
     for j=1:numTrainNumVals
-        trainNumVal = {trainNum(j)};
-        params.trainNum = trainNum(j);       
+        trainNumVal = {trainNumVals(j)};
+        params.trainNum = trainNumVals(j);       
         description = strcat(num2str(params.nPerm),'_',num2str(params.subV),'_',num2str(params.trainNum));
         inputs = struct(testingTypeKey, testingTypeVal,...
                 dataKey, Data,...
