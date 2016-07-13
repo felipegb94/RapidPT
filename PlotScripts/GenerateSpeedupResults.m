@@ -4,9 +4,9 @@ clear;
 % Parameters
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
-prefix = strcat('../timings_parallel/',dataset,'/');
+prefix = strcat('../../timings_parallel/',dataset,'/');
 
 % Get SnPM output data
 snpmPath = strcat(prefix,'snpm/timings_',dataset,'_320000.mat');
@@ -16,7 +16,7 @@ snpmTimePerPerm = snpmPermTime / 320000;
 
 % RapidPT parameters
 rapidptPathPrefix = strcat(prefix,'rapidpt/timings_');
-subVs = {'0.001','0.0035','0.005','0.007'};%,'0.01','0.05'};
+subVs = {'0.001','0.0035','0.005','0.007','0.01','0.05'};
 numSubVs = size(subVs,2);
 trainNums = {num2str(floor(N/2)),num2str(floor(3*N/4)),num2str(N),num2str(2*N)};
 numTrainNums = size(trainNums,2);

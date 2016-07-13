@@ -1,8 +1,8 @@
 function [ kldivergence ] = CompareHistograms( distribution1, distribution2 )
 %CompareHistograms Summary of this function goes here
 %   Detailed explanation goes here
-    addpath('~/PermTest/RapidPermTest/include/');
-    addpath('~/PermTest/RapidPermTest/util/');
+    addpath('../include/');
+    addpath('../util/');
 
     binRes = 0.05;
     Tbins = -9:binRes:9;

@@ -1,5 +1,5 @@
 Data = load('/nobackup/vamsi/PermTest/ExperimentsData/TwoSample/50_25_25.mat'); 
-numPermutations = 100; 
+numPermutations = 160000; 
 N = size(Data,1); % N: number of subjects
 V = size(Data,2); % V : number of voxels per subject
 nGroup1 = N / 2;
@@ -12,14 +12,14 @@ timings_path = strcat('~/private/PermTest/timings_parallel/',dataset,'/completep
 outputs_filename = strcat('outputsNaive_',dataset,'_',num2str(numPermutations),'.mat');
 timings_filename = strcat('timingsNaive_',dataset,'_',num2str(numPermutations),'.mat');
 
-naiveptPermTime = tic;
+NaivePTPermTime = tic;
 [indexMatrix] = GetIndexMatrix(numPermutations, N, nGroup1);
 MaxT = TwoSampleNaivePT(Data, indexMatrix, nGroup1);
-naiveptPermTime = toc(naiveptPermTime);
+NaivePTPermTime = toc(NaivePTPermTime);
 
 naiveptOutputs.MaxT = MaxT;
 naiveptOutputs.Dataset = dataset;
 
 save(strcat(outputs_path,outputs_filename),'naiveptOutputs');
-save(strcat(timings_path,timings_filename),'naiveptPermTime');
+save(strcat(timings_path,outputs_filename),'naiveptOutputs');
 

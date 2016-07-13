@@ -1,15 +1,24 @@
 addpath('functions')
-N = 50;
+N = 100;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
+savepath = '/Users/sbel/Dropbox/Felipe_Vamsi/Paper_new/figures/KLDivs_All/';
+savepath2 = prefix;
 
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-subVs = [0.001,0.0035,0.005,0.007];%,0.01,0.05};
-trainNums = [(floor(N/2)),(floor(3*N/4)),(N),(2*N)];
 
 load(strcat(prefix,'KLDivs_',dataset,'.mat'));
 
 kldivs = KlDivsResults.kldivs;
 
-f = PlotKLDiv(subVs, trainNums, permutations(1), kldivs(:,:,1), [0 0.15], [0 0.007],[25 100])
+subV_labels = cellstr(KlDivsResults.subVs);
+trainNum_labels = cellstr(KlDivsResults.trainNums);
+
+for i = 1:numPerms
+    filename = strcat('KLDiv_SnPM_',dataset,'_',num2str(permutations(i)));
+    PlotKLDiv_heatmap(kldivs(:,:,i),subV_labels,trainNum_labels,permutations(i));
+    fig = gcf;
+    print(fig,strcat(savepath,filename),'-dpng');
+    print(fig,strcat(savepath2,filename),'-dpng');
+end
