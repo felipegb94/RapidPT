@@ -2,7 +2,7 @@
 clear;
 
 % Parameters
-permutations = [2000,5000,10000,20000,40000,80000,160000];
+permutations = [2000,5000,10000,20000,40000];%,80000,160000];
 numPerms = size(permutations,2);
 N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -14,6 +14,12 @@ load(snpmPath);
 snpmTime = snpmPermTime;
 snpmTimePerPerm = snpmPermTime / 320000;
 
+% Get naivept output data
+naiveptPath = strcat(prefix,'completept/timingsNaive_',dataset,'_40000.mat');
+load(naiveptPath);
+naiveptTime = naiveptPermTime;
+naiveptTimePerPerm = naiveptPermTime / 40000;
+
 % RapidPT parameters
 rapidptPathPrefix = strcat(prefix,'rapidpt/timings_');
 subVs = {'0.001','0.0035','0.005','0.007','0.01','0.05'};
@@ -21,7 +27,8 @@ numSubVs = size(subVs,2);
 trainNums = {num2str(floor(N/2)),num2str(floor(3*N/4)),num2str(N),num2str(2*N)};
 numTrainNums = size(trainNums,2);
 
-speedups = zeros(numTrainNums,numSubVs,numPerms);
+speedups_snpm = zeros(numTrainNums,numSubVs,numPerms);
+speedups_naivept = zeros(numTrainNums,numSubVs,numPerms);
 
 for i=1:numSubVs
     subV = subVs{i};
@@ -37,16 +44,20 @@ for i=1:numSubVs
             perm = permutations(k);
             rapidpt_tTotal = (tRecoveryPerPerm * perm) + tTraining; 
             snpm_tTotal = snpmTimePerPerm * perm;
-            speedup = snpm_tTotal / rapidpt_tTotal;
-
-            speedups(j,i,k) = speedup;
+            naivept_tTotal = naiveptTimePerPerm * perm;            
+            speedup_snpm = snpm_tTotal / rapidpt_tTotal;
+            speedup_naivept = naivept_tTotal / rapidpt_tTotal;
+            
+            speedups_snpm(j,i,k) = speedup_snpm;
+            speedups_naivept(j,i,k) = speedup_naivept;
         end
     end
 end
-SpeedupsResults.Speedups = speedups;
+SpeedupsResults.Speedups_snpm = speedups_snpm;
 SpeedupsResults.permutations = permutations;
 SpeedupsResults.subVs = subVs;
 SpeedupsResults.trainNums = trainNums;
+SpeedupsResults.Speedups_naivept = speedups_naivept;
 
 save(strcat(prefix,'Speedups_',dataset,'.mat'), 'SpeedupsResults');
 

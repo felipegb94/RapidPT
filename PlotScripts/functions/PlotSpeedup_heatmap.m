@@ -1,11 +1,10 @@
-function [hImage, hText, hXText] = PlotSpeedup_heatmap(speedups,subV_labels,trainNum_labels,nPerm)
+    function [hImage, hText, hXText] = PlotSpeedup_heatmap(speedups,subV_labels,trainNum_labels,nPerm,plot_title)
 
     maxSpeedup = max(max(speedups));
     if(maxSpeedup < 5)
        maxSpeedup = 5;        
     end
     
-    plot_title = strcat('Speedup RapidPT vs. SnPM - ',num2str(nPerm),' Permutations');
 	[hImage, hText, hXText] = heatmap(speedups,subV_labels,trainNum_labels,...
                                       '%0.2f','Colorbar',true,...
                                       'FontSize', 12,...

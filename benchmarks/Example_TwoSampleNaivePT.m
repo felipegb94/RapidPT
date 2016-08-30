@@ -1,4 +1,5 @@
-Data = load('/nobackup/vamsi/PermTest/ExperimentsData/TwoSample/50_25_25.mat'); 
+load('/nobackup/vamsi/PermTest/ExperimentsData/TwoSample/50_25_25.mat'); 
+%load('../../50_25_25.mat');
 numPermutations = 100; 
 N = size(Data,1); % N: number of subjects
 V = size(Data,2); % V : number of voxels per subject
