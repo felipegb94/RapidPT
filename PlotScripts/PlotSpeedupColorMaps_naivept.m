@@ -2,10 +2,10 @@ addpath('functions')
 N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
-savepath = '/Users/sbel/Dropbox/Felipe_Vamsi/Paper_new/figures/Speedups_All/';
+savepath = '/home/felipe/Dropbox/Felipe_Vamsi/Paper_new/figures/Speedups_All/';
 savepath2 = prefix;
 
-permutations = [2000,5000,10000,20000,40000];
+permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
 
 load(strcat(prefix,'Speedups_',dataset,'.mat'));

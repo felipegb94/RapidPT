@@ -7,7 +7,7 @@ numPVals = size(pVals,2);
 % Parameters
 permutations = 10000;
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 subV = 0.0035;
 trainNum = N/2;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -33,6 +33,7 @@ naiveptMaxT = naiveptOutputs.MaxT(1:permutations);
 tThreshResults.pVals = pVals;
 tThreshResults.snpmTThresh = zeros(1,numPVals);
 tThreshResults.rapidptTThresh = zeros(1,numPVals);
+tThreshResults.naiveptTThresh = zeros(1,numPVals);
 tThreshResults.nPerm = permutations;
 tThreshResults.subV = subV;
 tThreshResults.trainNum = trainNum;

@@ -11,16 +11,16 @@ co = [0    0.4470    0.7410;...
     0.6350    0.0780    0.1840];
 
 % RapidPT parameters
-permutations = 5000;
+permutations = 10000;
 numPerms = size(permutations,2);
 N = [50,100,200,400];
 numDatasets = size(N,2);
-subV = 0.0035;
+subV = 0.005;
 datasetLabels = {'50','100','200','400'}  ;        
 
-savepath = '/Users/sbel/Dropbox/Felipe_Vamsi/Paper_new/figures/DatasetScaling_All/';
+savepath = '/home/felipe/Dropbox/Felipe_Vamsi/Paper_new/figures/DatasetScaling_All/';
 prefix = strcat('../../timings_parallel/');
-description = strcat(num2str(subV),'_N1_',num2str(permutations));
+description = strcat(num2str(subV),'_',num2str(permutations));
 filename = strcat('DatasetTimings_',description,'.mat');
 load(strcat(prefix,filename))
 
@@ -41,5 +41,5 @@ legend('RapidPT Train Time','RapidPT Recovery Time','SnPM Time', 'Location','nor
 filename1 = strcat(prefix,'DatasetScaling_',description,'.png');
 filename2 = strcat(savepath,'DatasetScaling_',description,'.png');
 
-%print(f,filename1,'-dpng')
-%print(f,filename2,'-dpng')   
+print(f,filename1,'-dpng')
+print(f,filename2,'-dpng')   

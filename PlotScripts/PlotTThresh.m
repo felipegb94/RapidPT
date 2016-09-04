@@ -17,7 +17,7 @@ trainNum = N/2;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
 description = strcat(num2str(permutations),'_',num2str(subV),'_',num2str(trainNum));
-save_path = '/Users/sbel/Dropbox/Felipe_Vamsi/Paper_new/figures/TThresh_All/';
+save_path = '/home/felipe/Dropbox/Felipe_Vamsi/Paper_new/figures/TThresh_All/';
 load(strcat(prefix,'TThresh_',dataset,'_',description,'.mat'));
 
 filename = strcat('TThresh_',dataset,'_',description);

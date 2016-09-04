@@ -9,14 +9,14 @@ co = [0    0.4470    0.7410;...
     0.6350    0.0780    0.1840];
 
 
-permutations = [2000,5000,10000,20000,40000,80000,160000];
+permutations = [2000,5000,10000,20000,40000];
 numPerms = size(permutations,2);
-N = 400;
+N = 50;
 subV = 0.005;
-trainNum = N / 2;
+trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
-save_path = '/Users/sbel/Dropbox/Felipe_Vamsi/Paper_new/figures/Scaling_All/';
+save_path = '/home/felipe/Dropbox/Felipe_Vamsi/Paper_new/figures/Scaling_All/';
 
 description = strcat(num2str(subV),'_',num2str(trainNum));
 filename = strcat('Scaling_',dataset,'_',description);
@@ -30,12 +30,12 @@ fig = figure;
 hold on;
 snpm_p = plot(ScalingResults.permutations,ScalingResults.snpmTimes./3600,'*-');
 rapidpt_p = plot(ScalingResults.permutations,ScalingResults.rapidptTimes./3600,'*-');
-%naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
+% naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
 title(strcat('SnPM vs RapidPT Scaling -',' N=',num2str(N)),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
-%set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
+% set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
 
 
 xlabel('Number of Permutations','FontSize',14);
