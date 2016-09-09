@@ -9,9 +9,9 @@ co = [0    0.4470    0.7410;...
     0.6350    0.0780    0.1840];
 
 
-permutations = 80000;
+permutations = 10000;
 
-N = 50;
+N = 400;
 subV = 0.005;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -29,20 +29,24 @@ fig = figure;
 hold on;
 baseResamplingRisk_p = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.baseResamplingRisk,'*-');
 resamplingRisk_p = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk,'*-');
+resamplingRisk_p2 = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk2,'*-');
+
 % naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
 title(strcat('Resampling Risk -',' N=',num2str(N)),'FontSize',14,'fontweight','bold');
 set(baseResamplingRisk_p ,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
 set(resamplingRisk_p ,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
+set(resamplingRisk_p2 ,'Color',co(3,:),'LineWidth',2,'MarkerSize',6)
+
 % set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
 
 
-xlabel('P-Values (%)','FontSize',14);
+xlabel('P-Values','FontSize',14);
 ylabel('Resampling Risk (%)','FontSize',14);
-legend('NaivePT-SnPM','RapidPT-SnPM','Location','northeast');
+legend('NaivePT-SnPM','RapidPT-SnPM','NaivePT-RapidPT','Location','northeast');
 
 set(gca,'FontSize',14)
-print(strcat(prefix,filename,'.png'),'-dpng');
-print(strcat(save_path,filename,'.png'),'-dpng');
+%print(strcat(prefix,filename,'.png'),'-dpng');
+%print(strcat(save_path,filename,'.png'),'-dpng');
 
 hold off;

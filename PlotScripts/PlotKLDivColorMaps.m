@@ -19,7 +19,7 @@ trainNum_labels = cellstr(KlDivsResults.trainNums);
 for i = 1:numPerms
     filename = strcat('KLDiv_SnPM_',dataset,'_',num2str(permutations(i)));
     plot_title = strcat('Dataset: ',dataset_title,',  ',num2str(permutations(i)),' Permutations');
-    PlotKLDiv_heatmap(kldivs(:,:,i),subV_labels,trainNum_labels,permutations(i),plot_title);
+    PlotKLDiv_heatmap(kldivs(:,:,i),subV_labels,trainNum_labels,plot_title);
     fig = gcf;
     print(fig,strcat(savepath,filename),'-dpng');
     print(fig,strcat(savepath2,filename),'-dpng');

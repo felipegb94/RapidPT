@@ -9,7 +9,7 @@ pVals = [0.5,1,2,3,4,5,6,7,8,9,10];
 numPVals = size(pVals,2);
 % Parameters
 permutations = 10000;
-N = 400;
+N = 50;
 subV = 0.005;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -53,60 +53,30 @@ ResamplingRiskResults.snpmNaiveptSignificantVoxelIndeces = cell(numPVals,1);
 
 ResamplingRiskResults.baseResamplingRisk = zeros(1,numPVals);
 ResamplingRiskResults.resamplingRisk = zeros(1,numPVals);
-
-% ResamplingRiskResults.resamplingRisk = zeros(1,numPVals);
+ResamplingRiskResults.resamplingRisk2 = zeros(1,numPVals);
 
 tstat = snpmOutputs.SnPMt;
 
 for i = 1:numPVals
+    
+    
     pVal = pVals(i);
-    snpmTThresh = prctile(snpmMaxT, 100 - pVal);
-    rapidptTThresh = prctile(rapidptMaxT', 100 - pVal);
-    naiveptTThresh = prctile(naiveptMaxT', 100 - pVal);
+    
+    [resamplingRisk, snpmTThresh, rapidptTThresh, snpmSignificantVoxelIndeces, rapidptSignificantVoxelIndeces, snpmRapidptSignificantVoxelIndeces] = GetResamplingRisk(snpmMaxT,rapidptMaxT,pVal,tstat);
+    [resamplingRisk2, naiveptTThresh, rapidptTThresh, naiveptSignificantVoxelIndeces, rapidptSignificantVoxelIndeces, naiveptRapidptSignificantVoxelIndeces] = GetResamplingRisk(naiveptMaxT,rapidptMaxT,pVal,tstat);
+    [baseResamplingRisk, snpmTThresh, naiveptTThresh, snpmSignificantVoxelIndeces, naiveptSignificantVoxelIndeces, snpmNaiveptSignificantVoxelIndeces] = GetResamplingRisk(snpmMaxT,naiveptMaxT,pVal,tstat);
+    
     ResamplingRiskResults.snpmTThresh(i) = snpmTThresh;
     ResamplingRiskResults.rapidptTThresh(i) = rapidptTThresh;
     ResamplingRiskResults.naiveptTThresh(i) = naiveptTThresh;
-
-    snpmSignificantVoxelIndeces = find(tstat > snpmTThresh);
-    rapidptSignificantVoxelIndeces = find(tstat > rapidptTThresh);
-    naiveptSignificantVoxelIndeces = find(tstat > naiveptTThresh);
-    snpmRapidptSignificantVoxelIndeces = intersect(snpmSignificantVoxelIndeces,rapidptSignificantVoxelIndeces);
-    snpmNaiveptSignificantVoxelIndeces = intersect(snpmSignificantVoxelIndeces,naiveptSignificantVoxelIndeces);    
-    
-    snpmNumSigVoxels = size(snpmSignificantVoxelIndeces,2);
-    rapidptNumSigVoxels = size(rapidptSignificantVoxelIndeces,2);
-    naiveptNumSigVoxels = size(naiveptSignificantVoxelIndeces,2);
- 
-    snpmRapidptNumSigVoxels = size(snpmRapidptSignificantVoxelIndeces,2);
-    snpmNaiveptNumSigVoxels = size(snpmNaiveptSignificantVoxelIndeces,2);
-    
-    resamplingRisk_snpmTerm = (snpmNumSigVoxels - snpmRapidptNumSigVoxels)/snpmNumSigVoxels;
-    resamplingRisk_rapidptTerm = (rapidptNumSigVoxels - snpmRapidptNumSigVoxels)/rapidptNumSigVoxels;
-    resamplingRisk = (resamplingRisk_snpmTerm + resamplingRisk_rapidptTerm)/2;
-
-    baseResamplingRisk_snpmTerm = (snpmNumSigVoxels - snpmNaiveptNumSigVoxels)/snpmNumSigVoxels;
-    baseResamplingRisk_naiveptTerm = (naiveptNumSigVoxels - snpmNaiveptNumSigVoxels)/naiveptNumSigVoxels;
-    baseResamplingRisk = (baseResamplingRisk_snpmTerm + baseResamplingRisk_naiveptTerm )/2;
-    
-    
-    if(isnan(resamplingRisk))
-       resamplingRisk = 1; 
-    end
-
-    if(isnan(baseResamplingRisk))
-       baseResamplingRisk = 1; 
-    end
-    
-    
     ResamplingRiskResults.snpmSignificantVoxelIndeces{i} = snpmSignificantVoxelIndeces;
     ResamplingRiskResults.rapidptSignificantVoxelIndeces{i} = rapidptSignificantVoxelIndeces;
     ResamplingRiskResults.naiveptSignificantVoxelIndeces{i} = naiveptSignificantVoxelIndeces;
-        
     ResamplingRiskResults.snpmRapidptSignificantVoxelIndeces{i} = snpmRapidptSignificantVoxelIndeces; 
     ResamplingRiskResults.snpmNaiveptSignificantVoxelIndeces{i} = snpmNaiveptSignificantVoxelIndeces; 
-    ResamplingRiskResults.resamplingRisk(i) = resamplingRisk * 100; 
-    ResamplingRiskResults.baseResamplingRisk(i) = baseResamplingRisk * 100; 
-
+    ResamplingRiskResults.resamplingRisk(i) = resamplingRisk; 
+    ResamplingRiskResults.resamplingRisk2(i) = resamplingRisk2; 
+ResamplingRiskResults.baseResamplingRisk(i) = baseResamplingRisk; 
 end
 
 

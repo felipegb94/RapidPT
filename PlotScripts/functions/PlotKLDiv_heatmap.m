@@ -1,4 +1,4 @@
-function [hImage, hText, hXText] = PlotKLDiv_heatmap(kldivs,subV_labels,trainNum_labels,nPerm,plot_title)
+function [hImage, hText, hXText] = PlotKLDiv_heatmap(kldivs,subV_labels,trainNum_labels,plot_title)
 
 %     plot_title = strcat('KLDivergence RapidPT vs. SnPM - ',num2str(nPerm),' Permutations');
 	[hImage, hText, hXText] = heatmap(kldivs,subV_labels,trainNum_labels,...

@@ -4,7 +4,7 @@ clear;
 % Parameters
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
 
@@ -30,6 +30,10 @@ numTrainNums = size(trainNums,2);
 speedups_snpm = zeros(numTrainNums,numSubVs,numPerms);
 speedups_naivept = zeros(numTrainNums,numSubVs,numPerms);
 
+timings_training = zeros(numTrainNums,numSubVs,numPerms);
+timings_recovery = zeros(numTrainNums,numSubVs,numPerms);
+
+
 for i=1:numSubVs
     subV = subVs{i};
     for j = 1:numTrainNums
@@ -50,6 +54,8 @@ for i=1:numSubVs
             
             speedups_snpm(j,i,k) = speedup_snpm;
             speedups_naivept(j,i,k) = speedup_naivept;
+            timings_training(j,i,k) = tTraining;
+            timings_recovery(j,i,k) = tRecoveryPerPerm * perm;
         end
     end
 end
