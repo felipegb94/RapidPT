@@ -1,5 +1,5 @@
 compThreads = maxNumCompThreads(1);
-pool = parpool(compThreads)
+pool = parpool(1);
 pool.IdleTimeout = 1000;
 
 % Addpath RapidPT Repository Path (current working dir in this case)
