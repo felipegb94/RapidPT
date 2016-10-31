@@ -1,4 +1,4 @@
-compThreads = maxNumCompThreads(1);
+compThreads = maxNumCompThreads(1)
 pool = parpool(1)
 pool.IdleTimeout = 1000;
 
