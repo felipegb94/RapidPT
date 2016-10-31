@@ -1,5 +1,6 @@
-addpath('functions')
-N = 50;
+addpath('functions');addpath('include');
+clear; close all;
+N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
@@ -13,7 +14,8 @@ load(strcat(prefix,'KLDivs_',dataset,'.mat'));
 
 kldivs = KlDivsResults.kldivs_rapidpt_snpm;
 
-subV_labels = cellstr(KlDivsResults.subVs);
+
+subV_labels = cellstr(KlDivsResults.subVsPercent);
 trainNum_labels = cellstr(KlDivsResults.trainNums);
 
 for i = 1:numPerms
@@ -21,6 +23,10 @@ for i = 1:numPerms
     plot_title = strcat('Dataset: ',dataset_title,',  ',num2str(permutations(i)),' Permutations');
     PlotKLDiv_heatmap(kldivs(:,:,i),subV_labels,trainNum_labels,plot_title);
     fig = gcf;
+    if(permutations(i) == 10000)
+        disp('stop');
+    end
+    
     print(fig,strcat(savepath,filename),'-dpng');
     print(fig,strcat(savepath2,filename),'-dpng');
 end

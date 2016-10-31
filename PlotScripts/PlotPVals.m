@@ -11,8 +11,8 @@ co = [0    0.4470    0.7410;...
 % Parameters
 permutations = 10000;
 numPerms = size(permutations,2);
-N = 400;
-subV = 0.005;
+N = 50;
+subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
@@ -27,9 +27,9 @@ disp(pValResults);
 
 fig = figure;
 hold on;
-snpm_p = plot(pValResults.tThresh,pValResults.snpmPVal,'o');
-rapidpt_p = plot(pValResults.tThresh,pValResults.rapidptPVal,'*');
-naivept_p = plot(pValResults.tThresh,pValResults.naiveptPVal,'+');
+snpm_p = plot(pValResults.tThresh,pValResults.snpmPVal/100,'o');
+rapidpt_p = plot(pValResults.tThresh,pValResults.rapidptPVal/100,'*');
+naivept_p = plot(pValResults.tThresh,pValResults.naiveptPVal/100,'+');
 title(strcat('Dataset: ',dataset_title,',  ',num2str(permutations),' Permutations'),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
@@ -38,8 +38,8 @@ set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
 xlabel('T-Threshold','FontSize',14);
 ylabel('P-Value','FontSize',14);
 legend('SnPM','RapidPT','NaivePT');
-
 set(gca,'FontSize',14)
+
 print(strcat(prefix,filename,'.png'),'-dpng');
 print(strcat(save_path,filename,'.png'),'-dpng');
 

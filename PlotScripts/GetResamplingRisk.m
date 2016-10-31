@@ -1,23 +1,7 @@
-function [ resamplingRisk, tThresh1, tThresh2, sigVoxelIndeces1, sigVoxelIndeces2, commonSigVoxelIndeces ] = GetResamplingRisk(maxT1, maxT2, pVal, tstat)
-%GetResamplingRisk Summary of this function goes here
-%   maxT1: tx1 vector of a probability distribution 1
-%   maxT2: 1xt vector of a probability distribution 1
-%   pVal: p-value in percent, i.e p-value of 0.05 is 5%
-%   tstat: 1xV vector of test statistic to threshold
+function [ resamplingRisk ] = GetResamplingRisk(sigVoxelIndeces1, sigVoxelIndeces2)
+%UNTITLED3 Summary of this function goes here
+%   Detailed explanation goes here
 
-    if(size(maxT1,1) == 1)
-        maxT1 = maxT1';
-    end
-    if(size(maxT2,1) == 1)
-        maxT2 = maxT2';
-    end
-    
-    tThresh1 = prctile(maxT1, 100 - pVal);
-    tThresh2 = prctile(maxT2, 100 - pVal);
-
-    sigVoxelIndeces1 = find(tstat > tThresh1);
-    sigVoxelIndeces2 = find(tstat > tThresh2);
-    
     commonSigVoxelIndeces = intersect(sigVoxelIndeces1, sigVoxelIndeces2);
     
     numSigVoxels1 = size(sigVoxelIndeces1,2);
@@ -34,7 +18,5 @@ function [ resamplingRisk, tThresh1, tThresh2, sigVoxelIndeces1, sigVoxelIndeces
     end
     
     resamplingRisk = 100 * (resamplingRisk_term1 + resamplingRisk_term2)/2;
-
-    
 end
 

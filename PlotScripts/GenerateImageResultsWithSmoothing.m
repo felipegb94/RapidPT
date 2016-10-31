@@ -9,7 +9,7 @@ pVal = 5;
 
 % Parameters
 permutations = 10000;
-N = 50;
+N = 400;
 subV = 0.005;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -52,15 +52,15 @@ rapidptXYZ = snpmOutputs.XYZ(:,rapidptSignificantVoxelIndeces);
 snpmPVals = zeros(1,snpmNumSigVoxels);
 rapidptPVals = zeros(1,rapidptNumSigVoxels);
 
-for i = 1:snpmNumSigVoxels
-   t = tstat(snpmSignificantVoxelIndeces(i));
-   snpmPVals(i) = 100 * size(find(snpmMaxT > t),1)/permutations;
-end
-
-for i = 1:rapidptNumSigVoxels
-   t = tstat(rapidptSignificantVoxelIndeces(i));
-   rapidptPVals(i) = 100 * size(find(rapidptMaxT > t),1)/permutations;
-end
+% for i = 1:snpmNumSigVoxels
+%    t = tstat(snpmSignificantVoxelIndeces(i));
+%    snpmPVals(i) = 100 * size(find(snpmMaxT > t),1)/permutations;
+% end
+% 
+% for i = 1:rapidptNumSigVoxels
+%    t = tstat(rapidptSignificantVoxelIndeces(i));
+%    rapidptPVals(i) = 100 * size(find(rapidptMaxT > t),1)/permutations;
+% end
 
 
 
@@ -73,20 +73,22 @@ ImageResults.template_nii = template_nii;
 
 e = spm_xyz2e(snpmXYZ,V(1));
 activatedSnpmImage = zeros(snpmOutputs.params.xdim,snpmOutputs.params.ydim,snpmOutputs.params.zdim);
-activatedSnpmImage(e) = snpmPVals;
+% activatedSnpmImage(e) = snpmPVals;
+activatedSnpmImage(e) = 1;
 snpm_nii = template_nii;
 snpm_nii.img = activatedSnpmImage;
-snpm_nii.fileprefix = strcat('snpm_nii_',dataset,'_',num2str(permutations));
-save_nii(snpm_nii,strcat('/home/felipe/PermTest/',snpm_nii.fileprefix));
+snpm_nii.fileprefix = strcat('smooth_snpm_nii_',dataset,'_',num2str(permutations));
+% save_nii(snpm_nii,strcat('../../',snpm_nii.fileprefix));
 ImageResults.snpm_nii = snpm_nii;
 
 e = spm_xyz2e(rapidptXYZ,V(1));
 activatedRapidptImage = zeros(snpmOutputs.params.xdim,snpmOutputs.params.ydim,snpmOutputs.params.zdim);
-activatedRapidptImage(e) = rapidptPVals;
+% activatedRapidptImage(e) = rapidptPVals;
+activatedRapidptImage(e) = 1;
 rapidpt_nii = template_nii;
 rapidpt_nii.img = activatedRapidptImage;
-rapidpt_nii.fileprefix = strcat('rapidpt_nii_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum));
-save_nii(rapidpt_nii,strcat('/home/felipe/PermTest/',rapidpt_nii.fileprefix));
+rapidpt_nii.fileprefix = strcat('smooth_rapidpt_nii_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum));
+% save_nii(rapidpt_nii,strcat('../../',rapidpt_nii.fileprefix));
 ImageResults.rapidpt_nii = rapidpt_nii;
 
 

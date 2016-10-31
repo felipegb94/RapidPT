@@ -12,7 +12,7 @@ function [hImage, hText, hXText] = PlotKLDiv_heatmap(kldivs,subV_labels,trainNum
                                       
                                       
     title(plot_title,'fontweight','bold')
-    xlabel('Sampling Rate');
+    xlabel('Sampling Rate (%)');
     ylabel('Number of Training Samples');
     set(gca,'FontSize',14,'FontName','Arial')
     

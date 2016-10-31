@@ -3,11 +3,11 @@ clear;
 
 
 % RapidPT parameters
-permutations = 20000;
+permutations = 10000;
 numPerms = size(permutations,2);
 N = [50,100,200,400];
 numDatasets = size(N,2);
-subV = 0.005;
+subV = 0.0035;
 
 DatasetTimings.snpmPermTimes = zeros(1,numDatasets);
 DatasetTimings.rapidptTrainTimes = zeros(1,numDatasets);
@@ -38,7 +38,7 @@ for i = 1:numDatasets
         snpmTime = snpmPermTime;
         snpmTimePerPerm = snpmPermTime / 320000;
         snpmTime = permutations * snpmTimePerPerm;
-%     end
+%    end
 
     % Get RapidPT output data
     description_postfix = strcat(num2str(subV),'_',num2str(trainNum));

@@ -34,7 +34,7 @@ for i=1:numSubVs
         rapidptMaxT = outputs.MaxT;
         for k = 1:numPerms
             perm = permutations(k);
-            [rr, ~, ~, ~, ~, ~] = GetResamplingRisk(snpmMaxT,rapidptMaxT,pVal,tstat);
+            [rr, ~, ~, ~, ~, ~] = GetResamplingRisk_Full(snpmMaxT,rapidptMaxT,pVal,tstat);
             disp(rr)
             resamplingRisk(j,i,k) = rr;
         end

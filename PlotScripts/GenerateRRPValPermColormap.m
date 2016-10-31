@@ -51,7 +51,7 @@ for i = 1:numPVals
        perm = permutations(j);
        snpmMaxT = snpmOutputs.MaxT(1:perm,1);
        rapidptMaxT = outputs.MaxT(1:perm);
-       [resamplingRisk, ~, ~, ~, ~, ~] = GetResamplingRisk(snpmMaxT,rapidptMaxT,pVal,tstat);
+       [resamplingRisk, ~, ~, ~, ~, ~] = GetResamplingRisk_Full(snpmMaxT,rapidptMaxT,pVal,tstat);
        RRPValPermResults.resamplingRisk(i,j) =  resamplingRisk;
     end
 end

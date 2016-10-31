@@ -1,8 +1,8 @@
 addpath('functions');
 
-pVal = 1;
-N = 400;
-perm = 2000;
+pVal = 5;
+N = 50;
+perm = 10000;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 

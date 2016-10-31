@@ -4,7 +4,7 @@ clear;
 % Parameters
 permutations = [2000,5000,10000,20000,40000];
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
 
@@ -16,6 +16,8 @@ MaxTnaivept = naiveptOutputs.MaxT;
 % RapidPT parameters
 rapidptPathPrefix = strcat(prefix,'rapidpt/outputs_');
 subVs = {'0.001','0.0035','0.005','0.007','0.01','0.05'};
+subVsPercent = {'0.1','0.35','0.5','0.7','1','5'};
+
 numSubVs = size(subVs,2);
 trainNums = {num2str(floor(N/2)),num2str(floor(3*N/4)),num2str(N),num2str(2*N)};
 numTrainNums = size(trainNums,2);
@@ -41,6 +43,8 @@ end
 KlDivsResults.kldivs_naivept= kldivs_naivept;
 KlDivsResults.permutations = permutations;
 KlDivsResults.subVs = subVs;
+KlDivsResults.subVsPercent = subVsPercent;
+
 KlDivsResults.trainNums = trainNums;
 
 save(strcat(prefix,'KLDivsNaivePT_',dataset,'.mat'), 'KlDivsResults');

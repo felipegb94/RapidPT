@@ -1,5 +1,5 @@
 addpath('functions')
-N = 400;
+N = 50;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
@@ -14,7 +14,7 @@ load(strcat(prefix,'Speedups_',dataset,'.mat'));
 speedups = SpeedupsResults.Speedups_snpm(:,2:end,:);
 
 
-subV_labels = cellstr(SpeedupsResults.subVs(2:end));
+subV_labels = cellstr(SpeedupsResults.subVsPercentage(2:end));
 trainNum_labels = cellstr(SpeedupsResults.trainNums);
 
 
