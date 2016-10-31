@@ -35,7 +35,7 @@ writingKey = 'writing';
 % Set the corresponding values to the keys.
 testingTypeVal = {'TwoSample'};
 nGroup1Val = N / 2; % Size of group 1, VERY IMPORTANT 
-numPermutationsVal = {160000}; % Number of Permutations.
+numPermutationsVal = {20000}; % Number of Permutations.
 maxRankVal = {N}; % Rank for estimating the low rank subspace
 maxCyclesVal = {3}; % Number of cycles for training.
 iterVal = {30}; % Number of iterations for matrix completion.
