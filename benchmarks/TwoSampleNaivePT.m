@@ -10,9 +10,8 @@ MaxT = zeros(nPerm,1);
 for i = 1:nPerm
     fprintf('Permutation %d of %d\n',i,nPerm);
     label_i = labels(i,:);
-    [junk1, junk2, junk3, stats] = ...
+    [~, ~, ~, stats] = ...
         ttest2(data(label_i(1:N1), :), data(label_i(1+N1:end), :), 0.05, 'both', 'unequal');
-    %T(i,:) = stats.tstat;
     MaxT(i) = max(stats.tstat);   
 end
 
