@@ -3,11 +3,11 @@ clf;
 clear;
 
 % Get the outputs struct you obtained from RapidPT
-load('~/PermTest/outputs/TwoSample_ADRC_25_25_50/rapidpt/outputs_10000_0.005_100.mat');
-alpha = 0.01; % Significance level of 1 percent
+load('~/PermTest/outputs/50_25_25/rapidpt/outputs_10000_0.005_100.mat');
+alpha = 0.05; % Significance level of 1 percent
 tThresh_RapidPT = prctile(outputs.maxT, 100 - (100*alpha));
 % Get the data
-load('~/PermTest/data/ADRC/TwoSample/ADRC_50_25_25.mat');
+load('~/PermTest/data/50_25_25.mat');
 [h,p,ci,stats]=ttest2(Data(1:25,:),Data(26:50,:),0.05,'both','unequal');
 SampleMaxT = max(stats.tstat);
 
