@@ -38,10 +38,18 @@ kldiv_rapidpt_snpm = CompareHistograms(MaxTrapidpt(1:perm),MaxTsnpm(1:perm));
 kldiv_rapidpt_naivept = CompareHistograms(MaxTrapidpt(1:perm),MaxTnaivept(1:perm));
 kldiv_naivept_snpm = CompareHistograms(MaxTnaivept(1:perm),MaxTsnpm(1:perm));
 
+pval = 0.05;
+binVal = perm - (pval*perm);
 
-[counts1,centers] = hist(MaxTsnpm(1:perm), 70);
+[counts1,centers] = hist(MaxTsnpm(1:perm), 100);
 [counts2] = hist(MaxTrapidpt(1:perm), centers);
 [counts3] = hist(MaxTnaivept(1:perm), centers);
+
+index1 = find(cumsum(counts1) > binVal,1); 
+index2 = find(cumsum(counts2) > binVal,1); 
+index3 = find(cumsum(counts3) > binVal,1); 
+
+xVal = centers(index1);
 
 fig = figure;
 hold on;
@@ -54,11 +62,14 @@ set(rapidpt_p,'Color',co(2,:),'LineWidth',1.5,'MarkerSize',6)
 naivept_p = plot(centers, counts3, '-+');
 set(naivept_p,'Color',co(7,:),'LineWidth',1.5,'MarkerSize',6)
 
+plot([xVal xVal],get(gca,'ylim'),'--','LineWidth',1.5,'MarkerSize',6)
+
+
 %title(strcat('Dataset: ',dataset_title,',  ',num2str(perm),' Permutations'),'FontSize',14,'fontweight','bold');
 title('Maximum Null Distribution','FontSize',14,'fontweight','bold');
 xlabel('Maximum T-Statistic','FontSize',14);
 ylabel('Histogram Count','FontSize',14);
-legend('SnPM','RapidPT','NaivePT');
+legend('SnPM','RapidPT','NaivePT','T-Threshold at p=0.05');
 set(gca,'FontSize',14)
 
         
@@ -68,7 +79,7 @@ description = strcat(num2str(perm),'_',num2str(subV),'_',num2str(trainNum));
 filename = strcat('Maxnull_',dataset,'_',description);
 save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Maxnull_All/';
 
-%print(strcat(prefix,filename,'.png'),'-dpng');
+print(strcat(prefix,filename,'.png'),'-dpng');
 print(strcat(save_path,filename,'.png'),'-dpng');
 
 hold off;

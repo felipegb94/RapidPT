@@ -1,9 +1,12 @@
 addpath('functions')
-N = 400;
+addpath('include')
+
+N = 50;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
 savepath = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Speedups_All/';
 savepath2 = prefix;
+dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
 
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);

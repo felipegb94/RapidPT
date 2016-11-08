@@ -57,7 +57,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     if(numPermutations < 10000)      
         subVal = {0.005};
     else
-        subVal = {0.004};
+        subVal = {0.0035};
     end
     
     maxCyclesVal = {3}; % Number of cycles for training.
@@ -70,14 +70,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     assert(N > nGroup1, 'nGroup1 cannot be larger than the number of subjects in the data');
     TVal = {numPermutations}; % Number of Permutations.
     maxRankVal = {N}; % Rank for estimating the low rank subspace
-
-    if(N < 50)
-        trainNumVal = {N};
-    elseif(N < 75)
-        trainNumVal = {ceil(3*N/4)};
-    else
-        trainNumVal = {ceil(N/2)}; % Number of permutations for training.
-    end
+    trainNumVal = N; % Default number of training samples
 
 
     inputs = struct(testingTypeKey, testingTypeVal,...

@@ -4,7 +4,7 @@ clear;
 % Parameters
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
 
