@@ -31,22 +31,22 @@ ResamplingRisk_snpm_naivept_p = plot(ResamplingRiskResults.pVals/100,ResamplingR
 ResamplingRisk_snpm_rapidpt_p = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_snpm_rapidpt,'*-');
 ResamplingRisk_naivept_rapidpt_p2 = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_naivept_rapidpt,'*-');
 
-% naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
-title(strcat('Resampling Risk -',' N=',num2str(N)),'FontSize',14,'fontweight','bold');
-set(ResamplingRisk_snpm_naivept_p ,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
-set(ResamplingRisk_snpm_rapidpt_p ,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
-set(ResamplingRisk_naivept_rapidpt_p2 ,'Color',co(3,:),'LineWidth',2,'MarkerSize',6)
-
-% set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
-
+title(strcat('Resampling Risk -',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
+set(ResamplingRisk_snpm_naivept_p ,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
+set(ResamplingRisk_snpm_rapidpt_p ,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
+set(ResamplingRisk_naivept_rapidpt_p2 ,'Color',co(3,:),'LineWidth',2,'MarkerSize',5)
 
 xlabel('P-Values','FontSize',14);
 ylabel('Resampling Risk (%)','FontSize',14);
-legend('NaivePT-SnPM','RapidPT-SnPM','NaivePT-RapidPT','Location','northeast');
+h = legend('NaivePT-SnPM','RapidPT-SnPM','NaivePT-RapidPT','Location','northeast');
+set(h,'fontsize',14);
+set(gca,'FontSize',14);
+grid on; 
 
-set(gca,'FontSize',14)
-print(strcat(prefix,'',filename,'.png'),'-dpng');
-print(strcat(save_path,'',filename,'.png'),'-dpng');
+% print(strcat(prefix,'',filename,'.png'),'-dpng');
+% print(strcat(save_path,'',filename,'.png'),'-dpng');
+
+saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
 
 hold off;

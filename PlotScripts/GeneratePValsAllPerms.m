@@ -1,11 +1,11 @@
 addpath('functions')
 clear;
 
-tThresholds = 4:0.1:7;
+tThresholds = 4:0.05:7;
 numTThresh = size(tThresholds,2);
 
 % Parameters
-permutations = 10000;
+permutations = [5000, 10000, 20000, 40000];
 numPerms = size(permutations,2);
 N = 400;
 subV = 0.0035;
@@ -16,33 +16,36 @@ rapidptPath = strcat(prefix,'rapidpt/');
 description = strcat('160000_',num2str(subV),'_',num2str(trainNum));
 rapidptFilename = strcat('outputs_',description,'.mat');
 load(strcat(rapidptPath,rapidptFilename));
-rapidptMaxT = outputs.MaxT(1:permutations);
 
 % Get SnPM output data
 snpmPath = strcat(prefix,'snpm/outputs_',dataset,'_320000.mat');
 load(snpmPath);
-snpmMaxT = snpmOutputs.MaxT(1:permutations,1);
 
 % Get NaivePT output data
 naiveptPath = strcat(prefix,'completept/outputsNaive_',dataset,'_40000.mat');
 load(naiveptPath);
-naiveptMaxT = naiveptOutputs.MaxT(1:permutations);
 
 
 pValResults.tThresh = tThresholds;
-pValResults.snpmPVal = zeros(1,numTThresh);
-pValResults.rapidptPVal = zeros(1,numTThresh);
-pValResults.naiveptPVal = zeros(1,numTThresh);
+pValResults.snpmPVal = zeros(numPerms,numTThresh);
+pValResults.rapidptPVal = zeros(numPerms,numTThresh);
+pValResults.naiveptPVal = zeros(numPerms,numTThresh);
 pValResults.nPerm = permutations;
 pValResults.subV = subV;
 pValResults.trainNum = trainNum;
 
+for i = 1:numPerms
+    perm = permutations(i)
+    rapidptMaxT = outputs.MaxT(1:perm);
+    snpmMaxT = snpmOutputs.MaxT(1:perm,1);
+    naiveptMaxT = naiveptOutputs.MaxT(1:perm);
 
-for i = 1:numTThresh
-    tThresh = tThresholds(i);
-    pValResults.snpmPVal(i) = 100 * size(find(snpmMaxT > tThresh),1)/permutations;
-    pValResults.rapidptPVal(i) = 100 * size(find(rapidptMaxT > tThresh),2)/permutations;
-    pValResults.naiveptPVal(i) = 100 * size(find(naiveptMaxT > tThresh),1)/permutations;
+    for j = 1:numTThresh
+        tThresh = tThresholds(j);
+        pValResults.snpmPVal(j) = 100 * size(find(snpmMaxT > tThresh),1)/perm;
+        pValResults.rapidptPVal(j) = 100 * size(find(rapidptMaxT > tThresh),2)/perm;
+        pValResults.naiveptPVal(j) = 100 * size(find(naiveptMaxT > tThresh),1)/perm;
+    end
 end
 % 
-save(strcat(prefix,'PVal_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum),'.mat'), 'pValResults');
+save(strcat(prefix,'PValAllPerms_',dataset,'_',num2str(subV),'_',num2str(trainNum),'.mat'), 'pValResults');

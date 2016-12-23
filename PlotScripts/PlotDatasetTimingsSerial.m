@@ -21,7 +21,7 @@ datasetLabels = {'50','100','200','400'}  ;
 save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/DatasetScaling_All/';
 prefix = strcat('../../timings_parallel/');
 description = strcat(num2str(subV),'_',num2str(permutations));
-filename = strcat('DatasetTimings_',description,'.mat');
+filename = strcat('DatasetTimingsSerial_',description,'.mat');
 load(strcat(prefix,filename))
 
 stackData = zeros(numDatasets, 2, 2);
@@ -37,7 +37,7 @@ for j = 1:numDatasets
 end
 f = plotBarStackGroups(stackData, datasetLabels);
 
-title(strcat('Dataset Parallel Scaling -',' L=',num2str(permutations)),'FontSize',14,'FontWeight','bold')
+title(strcat('Dataset Serial Scaling -',' L=',num2str(permutations)),'FontSize',14,'FontWeight','bold')
 set(gca,'FontSize',14)
 xlabel('Datasets (Number of Subjects)','FontSize',14);
 ylabel('Runtime (Hours)','FontSize',14);
@@ -45,13 +45,10 @@ h = legend('RapidPT Train Time','RapidPT Recovery Time','SnPM Time', 'Location',
 set(h,'fontsize',14);
 grid on;
 
-filename = strcat('DatasetTimings_',description)
+filename = strcat('DatasetTimingsSerial_',description);
 saveas(f,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
 % filename1 = strcat(prefix,'DatasetScaling_',description,'.png');
 % filename2 = strcat(save_path,'DatasetScaling_',description,'.png');
 % print(f,filename1,'-dpng')
 % print(f,filename2,'-dpng')   
-
-
-
-
+ 

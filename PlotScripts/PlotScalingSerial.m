@@ -11,7 +11,7 @@ co = [0    0.4470    0.7410;...
 
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 50;
+N = 400;
 subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -19,8 +19,8 @@ prefix = strcat('../../timings_parallel/',dataset,'/');
 save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Scaling_All/';
 
 description = strcat(num2str(subV),'_',num2str(trainNum));
-filename = strcat('Scaling_',dataset,'_',description);
-filenamefull = strcat('Scaling_',dataset,'_',description,'.mat');
+filename = strcat('ScalingSerial_',dataset,'_',description);
+filenamefull = strcat('ScalingSerial_',dataset,'_',description,'.mat');
 
 load(strcat(prefix,filenamefull));
 
@@ -32,21 +32,18 @@ snpm_p = plot(ScalingResults.permutations,ScalingResults.snpmTimes./3600,'*-');
 rapidpt_p = plot(ScalingResults.permutations,ScalingResults.rapidptTimes./3600,'*-');
 % naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
-title(strcat('SnPM vs RapidPT Parallel Scaling -',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
-set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
-set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
-% set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',5)
+title(strcat('SnPM vs RapidPT Serial Scaling -',' N=',num2str(N)),'FontSize',14,'fontweight','bold');
+set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
+set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
+% set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)
 
 
 xlabel('Number of Permutations','FontSize',14);
 ylabel('Time (hours)','FontSize',14);
-h = legend('SnPM','RapidPT','Location','northwest');
-set(h,'fontsize',14);
-set(gca,'FontSize',14)
-grid on; 
+legend('SnPM','RapidPT','NaivePT','Location','northwest');
 
-saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
-% print(strcat(prefix,filename,'.png'),'-dpng');
-% print(strcat(save_path,filename,'.png'),'-dpng');
+set(gca,'FontSize',14)
+print(strcat(prefix,filename,'.png'),'-dpng');
+print(strcat(save_path,filename,'.png'),'-dpng');
 
 hold off;

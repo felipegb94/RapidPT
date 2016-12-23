@@ -22,19 +22,21 @@ for i = 1:numDatasets
     dataset = strcat(num2str(N(i)),'_',num2str(N(i)/2),'_',num2str(N(i)/2));
     prefix = strcat('../../timings_parallel/',dataset,'/');  
     rapidptPathPrefix = strcat(prefix,'rapidpt/timings_');
+    snpmTime = 0;
+    snpmTimePerPerm = 0;
 
-
-    snpmPath = strcat(prefix,'snpm/timings_',dataset,'_10000.mat');
+    snpmPath = strcat(prefix,'snpm/timingsSerial_',dataset,'_10000.mat');
     % Get SnPM output data
     load(snpmPath);
     snpmTime = snpmPermTime;
     snpmTimePerPerm = snpmPermTime / 10000;
     snpmTime = permutations * snpmTimePerPerm;
+%    end
 
     % Get RapidPT output data
     description_postfix = strcat(num2str(subV),'_',num2str(trainNum));
     description = strcat('10000_',description_postfix);
-    load(strcat(rapidptPathPrefix,description,'.mat'));
+    load(strcat(rapidptPathPrefix,description,'_serial.mat'));
     rapidptTime = timings;
     rapidpt_tRecovery = rapidptTime.tRecovery;
     rapidpt_tRecoveryPerPerm = rapidpt_tRecovery/10000;
@@ -51,7 +53,7 @@ end
 
 prefix = strcat('../../timings_parallel/');
 description = strcat(num2str(subV),'_',num2str(permutations));
-filename = strcat('DatasetTimings_',description,'.mat');
+filename = strcat('DatasetTimingsSerial_',description,'.mat');
 save(strcat(prefix,filename),'DatasetTimings');
 
 

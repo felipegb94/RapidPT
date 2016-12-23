@@ -5,7 +5,7 @@ addpath('../../nifti/');
 
 clear;
 
-pVals = 1:0.1:10;
+pVals = 1:0.2:10;
 numPVals = size(pVals,2);
 % Parameters
 permutations = 10000;

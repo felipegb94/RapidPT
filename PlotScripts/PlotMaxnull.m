@@ -11,7 +11,7 @@ co = [0    0.4470    0.7410;...
 
 % Parameters
 perm = 10000;
-N = 400;
+N = 50;
 subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -69,20 +69,21 @@ plot([xVal xVal],get(gca,'ylim'),'--','LineWidth',1.5,'MarkerSize',6)
 title('Maximum Null Distribution','FontSize',14,'fontweight','bold');
 xlabel('Maximum T-Statistic','FontSize',14);
 ylabel('Histogram Count','FontSize',14);
-legend('SnPM','RapidPT','NaivePT','T-Threshold at p=0.05');
+h=legend('SnPM','RapidPT','NaivePT','T-Threshold at p=0.05');
+set(h,'fontsize',14);
 set(gca,'FontSize',14)
+grid on;
 
-        
 hold off;
 
 description = strcat(num2str(perm),'_',num2str(subV),'_',num2str(trainNum));
 filename = strcat('Maxnull_',dataset,'_',description);
 save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Maxnull_All/';
+saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
 
-print(strcat(prefix,filename,'.png'),'-dpng');
-print(strcat(save_path,filename,'.png'),'-dpng');
+% print(strcat(prefix,filename,'.png'),'-dpng');
+% print(strcat(save_path,filename,'.png'),'-dpng');
 
-hold off;
 
 
 

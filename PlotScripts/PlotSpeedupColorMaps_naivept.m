@@ -1,10 +1,16 @@
+clf;close all;
 addpath('functions')
 addpath('include')
 
-N = 50;
+
+N_All = [50,100,200,400];
+
+for j = 1:size(N_All,2)
+
+N = N_All(j);
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
-savepath = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Speedups_All/';
+save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/Speedups_All/';
 savepath2 = prefix;
 dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
 
@@ -22,9 +28,14 @@ trainNum_labels = cellstr(SpeedupsResults.trainNums);
 
 for i = 1:numPerms
     filename = strcat('Speedup_NaivePT_',dataset,'_',num2str(permutations(i)));
-    plot_title = strcat('Dataset: ',dataset_title,',  ',num2str(permutations(i)),' Permutations');
+    plot_title = strcat('Parallel Run, n=',num2str(N),',  L=',num2str(permutations(i)));
     PlotSpeedup_heatmap(speedups(:,:,i),subV_labels,trainNum_labels,permutations(i),plot_title);
     fig = gcf;
-    print(fig,strcat(savepath,filename),'-dpng');
-    print(fig,strcat(savepath2,filename),'-dpng');
+    set(gca,'FontSize',14)
+    saveas(fig,sprintf('%s',strcat(save_path,filename)),'epsc');
+    
+%     print(fig,strcat(savepath,filename),'-dpng');
+%     print(fig,strcat(savepath2,filename),'-dpng');
+end
+
 end
