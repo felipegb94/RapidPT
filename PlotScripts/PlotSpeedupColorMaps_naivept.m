@@ -32,10 +32,11 @@ for i = 1:numPerms
     PlotSpeedup_heatmap(speedups(:,:,i),subV_labels,trainNum_labels,permutations(i),plot_title);
     fig = gcf;
     set(gca,'FontSize',14)
-    saveas(fig,sprintf('%s',strcat(save_path,filename)),'epsc');
-    
-%     print(fig,strcat(savepath,filename),'-dpng');
-%     print(fig,strcat(savepath2,filename),'-dpng');
+    set(fig,'Units','Inches');
+    pos = get(fig,'Position');
+    set(fig,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+    print(fig,strcat(save_path,filename),'-dpdf','-r200');
+
 end
 
 end

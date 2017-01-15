@@ -11,12 +11,16 @@ co = [0    0.4470    0.7410;...
 
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 50;
+
+N_All = [50,100,200,400];
+for i = 1:4
+
+N = N_All(i);
 subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
-save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Scaling_All/';
+save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/Scaling_All/';
 
 description = strcat(num2str(subV),'_',num2str(trainNum));
 filename = strcat('Scaling_',dataset,'_',description);
@@ -27,12 +31,14 @@ load(strcat(prefix,filenamefull));
 disp(ScalingResults);
 
 fig = figure;
+set(gcf,'Visible', 'off'); 
+
 hold on;
 snpm_p = plot(ScalingResults.permutations,ScalingResults.snpmTimes./3600,'*-');
 rapidpt_p = plot(ScalingResults.permutations,ScalingResults.rapidptTimes./3600,'*-');
 % naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
-title(strcat('SnPM vs RapidPT Parallel Scaling -',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
+title(strcat('SnPM vs RapidPT Parallel Scaling, ',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
 % set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',5)
@@ -45,8 +51,13 @@ set(h,'fontsize',14);
 set(gca,'FontSize',14)
 grid on; 
 
-saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
-% print(strcat(prefix,filename,'.png'),'-dpng');
-% print(strcat(save_path,filename,'.png'),'-dpng');
 
-hold off;
+    fig = gcf;
+    set(gca,'FontSize',14)
+    set(fig,'Units','Inches');
+    pos = get(fig,'Position');
+    set(fig,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+    print(fig,strcat(save_path,filename,'.pdf'),'-dpdf','-r200');
+    hold off;
+
+end
