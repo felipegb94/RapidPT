@@ -27,8 +27,8 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 <table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/Speedup_NaivePT_50_25_25_40000.pdf" alt="SpeedupNaivePT"/></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/Speedup_SnPM_50_25_25_40000.pdf" alt="SpeedupSnPM"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/Speedup_NaivePT_50_25_25_40000.png" alt="SpeedupNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/Speedup_SnPM_50_25_25_40000.png" alt="SpeedupSnPM"/></td>
   </tr>
 </table>
 
@@ -36,8 +36,8 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 <table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_NaivePT_400_200_200_10000.pdf" alt="KLDivSnPM"/></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_SnPM_400_200_200_10000.pdf" alt="KLDivNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_NaivePT_400_200_200_10000.png" alt="KLDivSnPM"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_SnPM_400_200_200_10000.png" alt="KLDivNaivePT"/></td>
   </tr>
 </table>
 
