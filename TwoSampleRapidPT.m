@@ -2,7 +2,10 @@
 % % the following function computes the max Null statistic distribution 
 % % in its current format, the code only uses t-statistics
 
-%%% Corresponding paper :
+%%% Corresponding papers:
+% % Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM 
+% % F Gutierrez-Barragan, VK Ithapu, C Hinrichs, SC Johnson, TE Nichols, V Singh
+% % In Preparation
 % % Speeding up Permutation Testing in Neuroimaging 
 % % C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh
 % % NIPS 2013
@@ -27,15 +30,11 @@
 %       - timings.tTotal - Total time it took.
 
 function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1, writingVal, RapidPTLibraryPath)
-% RapidPT 
-%   Modified permutation testing algorithm described in the following paper
-%   Speeding up Permutation Testing in Neuroimaging  C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh, NIPS 2013
-    
+
     % N subjects, V voxels (or statistics)
     [N,V] = size(Data);
 
     % Set keys for input struct
-    testingTypeKey = 'testingType';
     dataKey = 'data';
     %labelsKey = 'labels';
     nGroup1Key = 'nGroup1';
@@ -52,7 +51,6 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
 % The following parameters have been extensively tested and have produced
 % good results, independent of the dataset size and number of permutations
 
-    testingTypeVal = {'TwoSample'};
     
     if(numPermutations < 10000)      
         subVal = {0.005};
@@ -73,8 +71,7 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
     trainNumVal = N; % Default number of training samples
 
 
-    inputs = struct(testingTypeKey, testingTypeVal,...
-                    dataKey, Data,...
+    inputs = struct(dataKey, Data,...
                     nGroup1Key, nGroup1Val,...
                     subKey, subVal,...
                     TKey, TVal,...

@@ -2,16 +2,20 @@
 % % the following function computes the max Null statistic distribution 
 % % in its current format, the code only uses t-statistics
 
-%%% Corresponding paper :
+%%% Corresponding papers:
+% % Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM 
+% % F Gutierrez-Barragan, VK Ithapu, C Hinrichs, SC Johnson, TE Nichols, V Singh
+% % In Preparation
 % % Speeding up Permutation Testing in Neuroimaging 
 % % C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh
 % % NIPS 2013
+
 
 %%% Arguments    
 % % 
 % %     %%% INPUTS
 % %     A structure filed with following arguments
-% %     inputs.datapath    :       path to mat file containing the data matrix 
+% %     inputs.data   :       path to mat file containing the data matrix 
 % %                                (REQUIRED) Two fields : data and labeling
 % %                                data - a matrix of size N X V
 % %                                labels - a vector of length N (2 groups)
@@ -35,19 +39,11 @@
 
 %%% Support codes for matrix completion
 % % GRASTA : https://sites.google.com/site/hejunzz/grasta
-% % Codes already included in the package
+% % Codes already included in the package (slight modifications were made).
 
-%%% Usage 
-% %     inputs.data = '/home/user/mydata/pt_data.mat';
-% %     inputs.maxrank = 30; input.T = 1000; input.traintime = 50; 
-% %     inputs.display = 1;
-% %     outputs = Efficient_PT(inputs);
 
 function [ outputs, timings ] = RapidPT( inputs, rapidPTLibraryPath )
-% RapidPermutationTesting 
-%   Modified permutation testing algorithm described in the following paper
-%   Speeding up Permutation Testing in Neuroimaging  C Hinrichs, VK Ithapu, Q Sun, SC Johnson, V Singh, NIPS 2013
-    
+
     fprintf('Starting RapidPermutationTesting...\n');
     tTotal = tic;
     fprintf('Adding Paths...\n');

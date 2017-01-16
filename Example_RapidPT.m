@@ -10,8 +10,6 @@ load(dataPathVal);
 [N,V] = size(Data);
 
 % Set keys for input struct
-testingTypeKey = 'testingType';
-dataPathKey = 'dataPath';
 dataKey = 'data';
 nGroup1Key = 'nGroup1';
 subKey = 'sub';
@@ -23,7 +21,6 @@ iterKey = 'iter';
 writingKey = 'writing';
 
 % Set the corresponding values to the keys.
-testingTypeVal = {'TwoSample'};
 nGroup1Val = N / 2; % Size of group 1, VERY IMPORTANT 
 subVal = {0.005};  % Sampling Rate
 numPermutationsVal = {5000}; % Number of Permutations.
@@ -44,8 +41,7 @@ description = strcat(num2str(params.nPerm),'_',num2str(params.subV),'_',num2str(
 saveOutPath = '../outputs_parallel/';
 saveTimePath = '../timings_parallel/';
 
-inputs = struct(testingTypeKey, testingTypeVal,...
-                dataKey, Data,...
+inputs = struct(dataKey, Data,...
                 nGroup1Key, nGroup1Val,...
                 subKey, subVal,...
                 numPermutationsKey, numPermutationsVal,...

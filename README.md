@@ -19,11 +19,11 @@
 ## Overview
 </a>
 
-Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating an alpha threshold that can accurately help identify what brain regions display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
+Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
 
 **RapidPT** is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. 
 
-**1. Fast:** RapidPT has shown speedups ranging from **30-90x** faster than simple permutation testing implementations, and **3-6x** faster than SnPM, a state of the art permutation testing toolbox for neuroimaging data. The larger speedups are seen when the number of permutations being done exceeds 10,000, and the size of the dataset is larger than 20 subjects.
+**1. Fast:** RapidPT has shown speedups ranging from **30-1000x** faster than simple permutation testing implementations, and **2-40x** faster than SnPM, a state of the art nonparametric testing toolbox in neuroimaging. 
 
 <table style="width:100%">
   <tr>
@@ -32,29 +32,24 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
   </tr>
 </table>
 
-**2. Reliable:** RapidPT has been validated against SnPM and a personal permutation testing implementation. The validation was done by comparing the KL-Divergence and p-values of the maximum-null distribution recovered by each software. More than **200 validation runs** have been done with various neuroimaging datasets composed from 10 up to 400 subjects. 
+**2. Reliable:** RapidPT has been validated against SnPM and a simple permutation testing implementation. Three validation measurements were used: the KL-Divergence between max null distributions, the corrected p-values, and the resampling risk. More than **200 validation runs** have been done with various neuroimaging datasets composed from 50 up to 400 subjects. 
 
 <table style="width:100%">
   <tr>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_NaivePT_400_200_200_10000.png" alt="KLDivSnPM"/></td>
-    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_SnPM_400_200_200_10000.png" alt="KLDivNaivePT"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_SnPM_400_200_200_10000.png" alt="KLDivSnPM"/></td>
+    <td><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/KLDiv_SnPM_400_200_200_40000.png" alt="KLDivNaivePT"/></td>
   </tr>
 </table>
 
+**3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops. The toolbox is able to leverage multi-core environments when available.
 
-
-**3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by many orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops.
+A thorough analysis of the scenarios were RapidPT performs best is done in the two reference papers.
 
 <a name="usecases">
 ## Use cases
 </a>
-RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. Various use cases in neuroimaging and similar applications show up here such as:
+RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. In neuroimaging this procedure could be used in scenarios such as placebo-control clinical trials or activation studies.
 
-**1. Placebo-Control Clinical Trials:** Detect statistically significant difference between the brain images of the subjects assigned to the placebo and control groups.
-
-**2. Activation Studies:** Detect statistically significant differences between the brain images of subjects during activation vs. during rest.
-
-**Note to users:** Feel free to add more use cases.
 
 <a name="setup">
 ## Setup
@@ -71,10 +66,9 @@ If you don't want to have the `addpath` line in every program you make, you can 
 <a name="usage">
 ## Usage
 </a>
-RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules, right now. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI and pre processing and performs permutation testing using RapidPT. Please refer to the [Usage Withing SnPM](#usagesnpm) section.
+RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI, pre and post processing capabilities. Please refer to the [Usage Within SnPM](#usagesnpm) section.
 
-
-There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the maxnull distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
+There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the max null distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
 
 #### `Example_TwoSampleRapidPT.m`
 1. First add the path to where you cloned/downloaded the `RapidPT` repository, and also load the data you will be working with. The data matrix needs to be an `NxV`, where `N` is the total number of subjects and V is the number of voxel statistics per subject.
@@ -90,11 +84,13 @@ There are two ways to use the core of RapidPT, either by calling the wrapper fun
 		nGroup1 = 25; % You should what is the size of one of your groups prior.
 
 3. Set `write`. If set to 0, outputs will only contain the constructed maximum null distribution. If set to 1, the outputs struct will contain the basis matrix, `U`, and coefficient matrix `W`. `U*W` recover the permutation matrix. For an in depth explanation see the references. 
+
 4. Call `TwoSampleRapidPT.m`. `outputs` is a struct containing `outputs.MaxT`,`outputs.U`, and `outputs.W`. `timings` is a struct containing timing information of different part of `RapidPT` as well as the total timing.
 
 		[outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
 5. Optionally save `outputs` and `timings`.
+
 6. Get the t-threshold estimate from the recovered maximum null distribution.
 
 		alpha_threshold = 1; % 1 percent
@@ -115,42 +111,29 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 * [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm fmri` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
 
 
-* [NiFTI] (http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
+* [NiFTI](http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
 
 * Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
 
 <a name="snpmrapidptsetup">
 ### SnPM + RapidPT Setup
 </a>
-Currently to use RapidPT within SnPM you will have to [download my fork of SnPM](https://github.com/felipegb94/SnPM-devel) (personal copy of SnPM). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
+Currently to use RapidPT within SnPM you will have to [download the development version](https://github.com/nicholst/SnPM-devel). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
 
 ```
 cd WHEREVER YOUR SPM DOWNLOAD IS
 cd spm12/toolbox/
-git clone https://github.com/felipegb94/SnPM-devel.git
+git clone https://github.com/nicholst/SnPM-devel
 cd SnPM-devel/
 ```
 
-Then we have to make a quick change to `snpm_cp.m` in order to be able to use RapidPT. In line `781` you will have to change 
+SnPM has a flag that determine when RapidPT is used. Depending on the value of the flag `SnPMdefs.RapidPT` RapidPT is:
 
-```
-RapidPT_path = ~/PermTest/RapidPT/
-```
+1. **Always Used:** `SnPMdefs.RapidPT = 2`.  
+2. **Sometimes Used:** `SnPMdefs.RapidPT = 1`. Used when `nPerm >= 10000`.  
+3. **Never Used:** `SnPMdefs.RapidPT = 0`.  
 
-to the path where you downloaded `RapidPT`. For example, you can do the following
-
-```
-cd ~/
-git clone https://github.com/felipegb94/RapidPT.git
-```
-
-Here we just downloaded RapidPT to your home folder, and then go into `snpm_cp.m` and change the `RapidPT_path` variable:
-
-```
-RapidPT_path = ~/RapidPT/
-```
-
-Save `snpm_cp.m` and, now in the MATLAB command line you can launch SPM and use RapidPT.
+This flag can be set in `snpm_defaults.m` on line 61. It is by default set to 0.
 
 <a name="snpmusage">
 ### SnPM Usage
@@ -188,19 +171,18 @@ Now follow these steps:
 9. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
 
 <a name="snpmoutputs">
-### Outputs
-</a>
-Once you are done, inside your `analysis` directory you will find a folder called `outputs`. This folder contains the results from RapidPT:
+### Post-processing and Outputs
+</a>  
+Once you are done, inside your `analysis` directory you will find a folder called `outputs`. This folder contains the results. If you follow the results section of the (SnPM tutorial)[http://www2.warwick.ac.uk/fac/sci/statistics/staff/academic-research/nichols/software/snpm/man/ex] you can see an example of the post-processing capabilities of SnPM. The most important output files in the analysis directory will be:
 
-*  `MaxT.mat`: This is the recovered maximum null distribution.
+*  `SnPM.mat`: Refer to snpm_cp.m for a thorough explanations of the contents of this output file. But this file contains one of the objects of interest the variable `MaxT`, which is an nPerm x 2 matrix of [max;min] t-statistic i.e it contains the Max null distribution.
 *  `SnPMt.mat`: This is the resulting test statistic calculated using the original labels of the data. 
 *  `XYZ.mat`: This matrix has the x, y, z coordinates associated to each voxel.
 *  `params.mat`: This structure contains the following parameters of the permutation testing run: nPerm (number of permutations), N (number of subjects), V (number of voxels after preprocessing), xdim, ydim, zdim.
-*  `coords_activeBrain_*.mat`: This contains the x,y,z coordinates of the voxels that were found to be displaying significant group differences with a significance level of alpha=0.5, 0.25, 0.1, 0.05 0.01]. These coordinates are used to generate the activeBrain nii files.
-*  `activeBrain_*.nii`: This is a binary brain nii file. The 1's are the voxels that were found to display significant group differences at a particular significance level (alpha=[0.5, 0.25, 0.1, 0.05 0.01]. 
 *  `timings.mat`: Contains some timing from rapidpt. 
+*  `SnPMucp.mat`: Contains a 1 x NumVoxels matrix of the nonparametric P values of the statistic of interest supplied for all voxels at locations XYZ. 
 
-The following plot is a historgram of the Maxnull distribution in MaxT and a t-threshold associated to an alpha=0.05.
+The following plot is a histogram of the Maxnull distribution in MaxT and a t-threshold associated to an alpha=0.05.
 
 ![maxnull](https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/recoveredMaxNull.png)
 
@@ -208,10 +190,9 @@ The following plot is a historgram of the Maxnull distribution in MaxT and a t-t
 ###Improtant Notes (PLEASE READ BEFORE USING):
 </a>
 
-* RapidPT is only available for TwoSample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
+* RapidPT is only available for Two Sample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
 
-* I integrated RapidPT into SnPM for users to be able to take advantages of SPM/SnPM graphical user interface and pre-processing. If you run SnPM with RapitPT, however, you will not be able to take advantage of any of SnPM/SPM postprocessing features because RapidPT when doing the permutation tests does not generate all of the required data for SnPM to use. If RapidPT is fully integrated into SnPM, then we will make sure that the post-processing capabilities of SnPM are also available.
-
+* For a thorough analysis of the ideas and the RapidPT algorithm please refer to the (references)[#references]
 
 
 <a name="codeorganization">
@@ -221,12 +202,16 @@ The following plot is a historgram of the Maxnull distribution in MaxT and a t-t
 
 #### `RapidPT.m`
 This is the core of RapidPT. This is where the main algorithm and math ideas described in the NIPS paper happen.
+
 #### `TwoSampleRapidPT.m`
 This is a wrapper of the core. This function will assign most of the hyperparameters that can be given to `RapidPT.m` for you. The hyperparameters chosen have been extensively tested, and some of them are derived from the data dimensions and number of permutations chosen.
+
 #### `Example_TwoSampleRapidPT.m`
 This is an example script that uses `TwoSampleRapidPT.m` wrapper program.
+
 #### `Example_RapidPT.m`
 This is an example script that directly uses `RapidPT.m`. You will note that a lot more hyperparameters need to be passed to `RapidPT.m` compared to `TwoSampleRapidPT.m`.
+
 #### `TwoSampleGetLabelsMatrices.m`
 This is a function that given: `numPermutations` (Number of Permutations to be done), `N` (total number of subjects), `nGroup1` (The number of subjects in group1), returns the labels for each subject in each group that will be used at each permutation. 
 
@@ -242,14 +227,16 @@ This directory contains various utility functions used by RapidPT for input vali
 <a name="warnings">
 ## Warnings
 </a>
-RapidPT has been extensively tested on medium and large datasets (20+ subjects) of a specific flavor. The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours.
+RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the (references)[#references]
 
  
 <a name="references">
 ## References
 </a>
-RapidPT is based on the paper, Speeding up Permutation Testing in Neuroimaging, presented at NIPS, 2013.
+RapidPT is based on the following two papers:
 
-C. Hinrichs, V. K. Ithapu, Q. Sun, V. Singh, S. C. Johnson, Speeding up Permutation Testing in Neuroimaging, Neural Information Processing Systems (NIPS), 2013.
+Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
+
+C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutation Testing in Neuroimaging. Neural Information Processing Systems (NIPS), 2013.
 
 
