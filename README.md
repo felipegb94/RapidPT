@@ -43,9 +43,9 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 **3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops. The toolbox is able to leverage multi-core environments when available.
 
-A thorough analysis of the scenarios were RapidPT performs best is done in the two reference papers.
+A thorough analysis of the scenarios were RapidPT performs best is done in the two [reference papers](#references).
 
-<a name="usecases">
+[a]name=(usecases")
 ## Use cases
 </a>
 RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. In neuroimaging this procedure could be used in scenarios such as placebo-control clinical trials or activation studies.
@@ -83,7 +83,7 @@ There are two ways to use the core of RapidPT, either by calling the wrapper fun
 		numPermutations = 5000;
 		nGroup1 = 25; % You should what is the size of one of your groups prior.
 
-3. Set `write`. If set to 0, outputs will only contain the constructed maximum null distribution. If set to 1, the outputs struct will contain the basis matrix, `U`, and coefficient matrix `W`. `U*W` recover the permutation matrix. For an in depth explanation see the references. 
+3. Set `write`. If set to 0, outputs will only contain the constructed maximum null distribution. If set to 1, the outputs struct will contain the basis matrix, `U`, and coefficient matrix `W`. `U*W` recover the permutation matrix. For an in depth explanation see the [references](#references). 
 
 4. Call `TwoSampleRapidPT.m`. `outputs` is a struct containing `outputs.MaxT`,`outputs.U`, and `outputs.W`. `timings` is a struct containing timing information of different part of `RapidPT` as well as the total timing.
 
@@ -192,7 +192,7 @@ The following plot is a histogram of the Maxnull distribution in MaxT and a t-th
 
 * RapidPT is only available for Two Sample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
 
-* For a thorough analysis of the ideas and the RapidPT algorithm please refer to the (references)[#references]
+* For a thorough analysis of the ideas and the RapidPT algorithm please refer to the [references](#references)
 
 
 <a name="codeorganization">
@@ -227,7 +227,7 @@ This directory contains various utility functions used by RapidPT for input vali
 <a name="warnings">
 ## Warnings
 </a>
-RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the (references)[#references]
+RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the [references](#references)
 
  
 <a name="references">
