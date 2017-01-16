@@ -40,7 +40,7 @@ snpm_p = plot(ScalingResults.permutations,ScalingResults.snpmTimes./3600,'*-');
 rapidpt_p = plot(ScalingResults.permutations,ScalingResults.rapidptTimes./3600,'*-');
 % naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
-title(strcat('Permutation Serial Scaling, ',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
+title(strcat('Permutation Serial Scaling: ',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',6)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',6)
 % set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',6)

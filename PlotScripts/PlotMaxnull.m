@@ -11,7 +11,11 @@ co = [0    0.4470    0.7410;...
 
 % Parameters
 perm = 10000;
-N = 50;
+N_All = [50,100,200,400];
+for i = 1:4
+
+N = N_All(i);
+
 subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
@@ -52,6 +56,8 @@ index3 = find(cumsum(counts3) > binVal,1);
 xVal = centers(index1);
 
 fig = figure;
+set(gcf,'Visible', 'off'); 
+
 hold on;
 snpm_p = plot(centers, counts1, '-o');
 rapidpt_p = plot(centers, counts2, '-*');
@@ -65,8 +71,7 @@ set(naivept_p,'Color',co(7,:),'LineWidth',1.5,'MarkerSize',6)
 plot([xVal xVal],get(gca,'ylim'),'--','LineWidth',1.5,'MarkerSize',6)
 
 
-%title(strcat('Dataset: ',dataset_title,',  ',num2str(perm),' Permutations'),'FontSize',14,'fontweight','bold');
-title('Maximum Null Distribution','FontSize',14,'fontweight','bold');
+title(strcat('Max Null: n=',num2str(N),', L=',num2str(perm)),'FontSize',14,'fontweight','bold');
 xlabel('Maximum T-Statistic','FontSize',14);
 ylabel('Histogram Count','FontSize',14);
 h=legend('SnPM','RapidPT','NaivePT','T-Threshold at p=0.05');
@@ -78,14 +83,17 @@ hold off;
 
 description = strcat(num2str(perm),'_',num2str(subV),'_',num2str(trainNum));
 filename = strcat('Maxnull_',dataset,'_',description);
-save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/Maxnull_All/';
-saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
-
-% print(strcat(prefix,filename,'.png'),'-dpng');
-% print(strcat(save_path,filename,'.png'),'-dpng');
+save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/Maxnull_All/';
+    set(gcf,'Visible', 'off'); 
 
 
+    set(gca,'FontSize',14)
+    set(fig,'Units','Inches');
+    pos = get(fig,'Position');
+    set(fig,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+    print(fig,strcat(save_path,filename,'.pdf'),'-dpdf','-r200');
 
+end
 
 
 

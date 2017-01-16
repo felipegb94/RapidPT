@@ -27,15 +27,16 @@ trainNum_labels = cellstr(KlDivsResults.trainNums);
 
 for i = 1:numPerms
     filename = strcat('KLDiv_SnPM_',dataset,'_',num2str(permutations(i)));
-    plot_title = strcat('Dataset: ',dataset_title,', L=',num2str(permutations(i)));
+    plot_title = strcat('KL-Divergence: n=',num2str(N),', L=',num2str(permutations(i)));
     PlotKLDiv_heatmap(kldivs(:,:,i),subV_labels,trainNum_labels,plot_title);
     fig = gcf;
+    set(gcf,'Visible', 'off'); 
+
+
     set(gca,'FontSize',14)
-    saveas(fig,sprintf('%s',strcat(save_path,filename)),'epsc');
-%     if(permutations(i) == 10000)
-%         disp('stop');
-%     end
-%     print(fig,strcat(save_path,filename),'-dpng');
-%     print(fig,strcat(savepath2,filename),'-dpng');
+    set(fig,'Units','Inches');
+    pos = get(fig,'Position');
+    set(fig,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+    print(fig,strcat(save_path,filename),'-dpdf','-r200');
 end
 end

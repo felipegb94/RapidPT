@@ -28,9 +28,11 @@ trainNum_labels = cellstr(SpeedupsResults.trainNums);
 
 for i = 1:numPerms
     filename = strcat('Speedup_NaivePT_',dataset,'_',num2str(permutations(i)));
-    plot_title = strcat('Parallel Run, n=',num2str(N),',  L=',num2str(permutations(i)));
+    plot_title = strcat('Parallel Speedup: n=',num2str(N),',  L=',num2str(permutations(i)));
     PlotSpeedup_heatmap(speedups(:,:,i),subV_labels,trainNum_labels,permutations(i),plot_title);
     fig = gcf;
+    set(gcf,'Visible', 'off'); 
+
     set(gca,'FontSize',14)
     set(fig,'Units','Inches');
     pos = get(fig,'Position');

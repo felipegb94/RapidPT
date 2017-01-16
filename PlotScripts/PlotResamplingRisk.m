@@ -11,12 +11,15 @@ co = [0    0.4470    0.7410;...
 
 permutations = 10000;
 
-N = 400;
+N_All = [50,100,200,400];
+for i = 1:4
+
+N = N_All(i);
 subV = 0.0035;
 trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
-save_path = '/home/felipe/Dropbox/Felipe_Vamsi/figures/ResamplingRisk_All/';
+save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/ResamplingRisk_All/';
 
 description = strcat(num2str(permutations),'_',num2str(subV),'_',num2str(trainNum));
 filename = strcat('ResamplingRisk_',dataset,'_',description);
@@ -26,13 +29,15 @@ load(strcat(prefix,filename,'.mat'));
 disp(ResamplingRiskResults);
 
 fig = figure;
+set(gcf,'Visible', 'off'); 
+
 hold on;
 ResamplingRisk_snpm_naivept_p = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_snpm_naivept,'*-');
 ResamplingRisk_snpm_rapidpt_p = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_snpm_rapidpt,'*-');
 ResamplingRisk_naivept_rapidpt_p2 = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_naivept_rapidpt,'*-');
 
 
-title(strcat('Resampling Risk -',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
+title(strcat('Resampling Risk: ',' n=',num2str(N), ', L=',num2str(permutations)),'FontSize',14,'fontweight','bold');
 set(ResamplingRisk_snpm_naivept_p ,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
 set(ResamplingRisk_snpm_rapidpt_p ,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
 set(ResamplingRisk_naivept_rapidpt_p2 ,'Color',co(3,:),'LineWidth',2,'MarkerSize',5)
@@ -47,6 +52,14 @@ grid on;
 % print(strcat(prefix,'',filename,'.png'),'-dpng');
 % print(strcat(save_path,'',filename,'.png'),'-dpng');
 
-saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
+%saveas(fig,sprintf('%s',strcat(save_path,filename,'.eps')),'epsc');
 
-hold off;
+    fig = gcf;
+    set(gca,'FontSize',14)
+    set(fig,'Units','Inches');
+    pos = get(fig,'Position');
+    set(fig,'PaperPositionMode','Auto','PaperUnits','Inches','PaperSize',[pos(3), pos(4)])
+    print(fig,strcat(save_path,filename,'.pdf'),'-dpdf','-r200');
+    hold off;
+    
+end

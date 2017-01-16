@@ -11,7 +11,7 @@ co = [0    0.4470    0.7410;...
     0.6350    0.0780    0.1840];
 
 % RapidPT parameters
-permutations = 20000;
+permutations = 40000;
 numPerms = size(permutations,2);
 N = [50,100,200,400];
 numDatasets = size(N,2);
@@ -38,7 +38,7 @@ end
 f = plotBarStackGroups(stackData, datasetLabels);
 set(gcf,'Visible', 'off'); 
 
-title(strcat('Dataset Parallel Scaling -',' L=',num2str(permutations)),'FontSize',14,'FontWeight','bold')
+title(strcat('Dataset Parallel Scaling: ',' L=',num2str(permutations)),'FontSize',14,'FontWeight','bold')
 set(gca,'FontSize',14)
 xlabel('Datasets (Number of Subjects)','FontSize',14);
 ylabel('Runtime (Hours)','FontSize',14);
