@@ -1,0 +1,8 @@
+title: Rapidpt
+description: Rapid Permutation Testing using Matrix Completion Methods
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
