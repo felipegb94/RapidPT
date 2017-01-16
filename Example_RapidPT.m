@@ -25,7 +25,7 @@ nGroup1Val = N / 2; % Size of group 1, VERY IMPORTANT
 subVal = {0.005};  % Sampling Rate
 numPermutationsVal = {5000}; % Number of Permutations.
 maxRankVal = {N}; % Rank for estimating the low rank subspace
-trainNumVal = {ceil(N/2)}; % Number of permutations for training.
+trainNumVal = {N}; % Number of permutations for training.
 maxCyclesVal = {3}; % Number of cycles for training.
 iterVal = {30}; % Number of iterations for matrix completion.
 % Set write to 1 if you want the matrices used to recover the permutation matrix.

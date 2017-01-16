@@ -45,7 +45,7 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 A thorough analysis of the scenarios were RapidPT performs best is done in the two [reference papers](#references).
 
-[a]name=(usecases")
+<a name="usecases">
 ## Use cases
 </a>
 RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. In neuroimaging this procedure could be used in scenarios such as placebo-control clinical trials or activation studies.
@@ -133,7 +133,7 @@ SnPM has a flag that determine when RapidPT is used. Depending on the value of t
 2. **Sometimes Used:** `SnPMdefs.RapidPT = 1`. Used when `nPerm >= 10000`.  
 3. **Never Used:** `SnPMdefs.RapidPT = 0`.  
 
-This flag can be set in `snpm_defaults.m` on line 61. It is by default set to 0.
+This flag should be set in `snpm_defaults.m` on line 61. It is by default set to 0.
 
 <a name="snpmusage">
 ### SnPM Usage
@@ -144,7 +144,7 @@ This would be a good time to read the important notes below.
 Now that you have setup RapidPT within SnPM, SnPM will work very similar to before. Launch SPM,
 
 ```
-spm fmri
+spm
 ```
 
 Now follow these steps:
