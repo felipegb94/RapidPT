@@ -179,9 +179,10 @@ Now follow these steps:
 8. Click the green run button again, and now SnPM will run with RapidPT.
 9. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
 
-<a name="snpmoutputs">
+<a name="snpmoutputs"></a>  
+
 ### Post-processing and Outputs
-</a>  
+
 Once you are done, inside your `analysis` directory you will find a folder called `outputs`. This folder contains the results. If you follow the results section of the (SnPM tutorial)[http://www2.warwick.ac.uk/fac/sci/statistics/staff/academic-research/nichols/software/snpm/man/ex] you can see an example of the post-processing capabilities of SnPM. The most important output files in the analysis directory will be:
 
 *  `SnPM.mat`: Refer to snpm_cp.m for a thorough explanations of the contents of this output file. But this file contains one of the objects of interest the variable `MaxT`, which is an nPerm x 2 matrix of [max;min] t-statistic i.e it contains the Max null distribution.
