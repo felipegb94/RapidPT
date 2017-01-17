@@ -18,6 +18,7 @@
 
 <a name="overview">
 </a>
+
 ## Overview
 
 Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
@@ -46,15 +47,17 @@ Multiple hypothesis testing is a problem when applying statistical tests on neur
 
 A thorough analysis of the scenarios were RapidPT performs best is done in the two [reference papers](#references).
 
-<a name="usecases">
+<a name="usecases"></a>
+
 ## Use cases
-</a>
+
 RapidPT can be used for the nonparametric statistical analysis of neuroimaging data. The permutation testing procedure modeled by RapidPT is a nonparametric combination of two-sample t-test. Two sample t-test are typically used to determine if two population means are equal. In neuroimaging this procedure could be used in scenarios such as placebo-control clinical trials or activation studies.
 
 
-<a name="setup">
+<a name="setup"></a>
+
 ## Setup
-</a>
+
 Simply clone the repository and add the path of the repository inside your program to be able to call the functions.
 
 ```
@@ -64,14 +67,16 @@ addpath('PATH_WHERE_YOU_CLONED_THE_REPOSITORY');
 
 If you don't want to have the `addpath` line in every program you make, you can have it in your `startup.m` file for you MATLAB setup.
 
-<a name="usage">
+<a name="usage"></a>
+
 ## Usage
-</a>
+
 RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI, pre and post processing capabilities. Please refer to the [Usage Within SnPM](#usagesnpm) section.
 
 There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the max null distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
 
 #### `Example_TwoSampleRapidPT.m`
+
 1. First add the path to where you cloned/downloaded the `RapidPT` repository, and also load the data you will be working with. The data matrix needs to be an `NxV`, where `N` is the total number of subjects and V is the number of voxel statistics per subject.
 
 		RapidPTLibraryPath = '.';
@@ -100,11 +105,13 @@ There are two ways to use the core of RapidPT, either by calling the wrapper fun
 7. If you have the labels of the data available, you can calculate the two-sample t-test and see compare the result of each voxel to the t-threshold and see which voxels exhibit statistically significant activity.
 
 #### `Example_RapidPT.m`
+
 Take a look at the header comments of `RapidPT.m` and the comments in `Example_RapidPT.m` to see how to directly call `RapidPT.m`. It is recommended to use `TwoSampleRapidPT.m` in order to avoid hyperparameter tuning.
 
-<a name="usagesnpm">
+<a name="usagesnpm"></a>
+
 ## Usage within SnPM
-</a>
+
 <a name="snpmprerequisites">
 ### Prerequistes
 </a>
