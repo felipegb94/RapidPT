@@ -1,5 +1,7 @@
 # RapidPT
+
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Use Cases](#usecases)
 3. [Setup](#setup)
@@ -14,10 +16,9 @@
 7. [Warnings](#warnings)
 8. [References](#references)
 
-
 <a name="overview">
-## Overview
 </a>
+## Overview
 
 Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
 
