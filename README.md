@@ -112,9 +112,9 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 
 ## Usage within SnPM
 
-<a name="snpmprerequisites">
+<a name="snpmprerequisites"></a>
+
 ### Prerequistes
-</a>
 
 * [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm fmri` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
 
@@ -123,9 +123,10 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 
 * Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
 
-<a name="snpmrapidptsetup">
+<a name="snpmrapidptsetup"></a>
+
 ### SnPM + RapidPT Setup
-</a>
+
 Currently to use RapidPT within SnPM you will have to [download the development version](https://github.com/nicholst/SnPM-devel). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
 
 ```
@@ -143,9 +144,9 @@ SnPM has a flag that determine when RapidPT is used. Depending on the value of t
 
 This flag should be set in `snpm_defaults.m` on line 61. It is by default set to 0.
 
-<a name="snpmusage">
+<a name="snpmusage"></a>
+
 ### SnPM Usage
-</a>
 
 This would be a good time to read the important notes below. 
 
@@ -203,44 +204,55 @@ The following plot is a histogram of the Maxnull distribution in MaxT and a t-th
 * For a thorough analysis of the ideas and the RapidPT algorithm please refer to the [references](#references)
 
 
-<a name="codeorganization">
+<a name="codeorganization"></a>
+
 ## Code Organization
-</a>
+
 ### RapidPT
 
 #### `RapidPT.m`
+
 This is the core of RapidPT. This is where the main algorithm and math ideas described in the NIPS paper happen.
 
 #### `TwoSampleRapidPT.m`
+
 This is a wrapper of the core. This function will assign most of the hyperparameters that can be given to `RapidPT.m` for you. The hyperparameters chosen have been extensively tested, and some of them are derived from the data dimensions and number of permutations chosen.
 
 #### `Example_TwoSampleRapidPT.m`
+
 This is an example script that uses `TwoSampleRapidPT.m` wrapper program.
 
 #### `Example_RapidPT.m`
+
 This is an example script that directly uses `RapidPT.m`. You will note that a lot more hyperparameters need to be passed to `RapidPT.m` compared to `TwoSampleRapidPT.m`.
 
 #### `TwoSampleGetLabelsMatrices.m`
+
 This is a function that given: `numPermutations` (Number of Permutations to be done), `N` (total number of subjects), `nGroup1` (The number of subjects in group1), returns the labels for each subject in each group that will be used at each permutation. 
 
 ### include/
+
 The `include/` folder contains the library *grasta*. This library contains the online matrix completion method we use to accelerate permutation testing. For more information about *grasta* you can refer to the [project website](https://sites.google.com/site/hejunzz/grasta#TOC-Robust-Matrix-Completion).
 
 ### outputs/ & timings/
+
 These are the default directories used to output the resulting max-null distribution, and timings of different sections of the algorithm. If the flag `inputs.write` is set to `1` the low-rank basis, `U`, and the coefficient matrix, `W`, that can recover the permutation matrix will also be saved.
 
 ### util/
+
 This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
   
-<a name="warnings">
+<a name="warnings"></a>
+
 ## Warnings
-</a>
+
 RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the [references](#references)
 
  
-<a name="references">
+<a name="references"></a>
+
 ## References
-</a>
+
 RapidPT is based on the following two papers:
 
 Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
