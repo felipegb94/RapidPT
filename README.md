@@ -196,9 +196,9 @@ The following plot is a histogram of the Maxnull distribution in MaxT and a t-th
 
 ![maxnull](https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/recoveredMaxNull.png)
 
-<a name="snpmnotes">
-###Improtant Notes (PLEASE READ BEFORE USING):
-</a>
+<a name="snpmnotes"></a>
+
+### Improtant Notes (PLEASE READ BEFORE USING):
 
 * RapidPT is only available for Two Sample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
 
