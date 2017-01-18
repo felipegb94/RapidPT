@@ -1,5 +1,16 @@
 # RapidPT
 
+<a name="references"></a>
+
+## References
+
+RapidPT is based on the following two papers:
+
+Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
+
+C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutation Testing in Neuroimaging. Neural Information Processing Systems (NIPS), 2013.
+
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -249,15 +260,6 @@ This directory contains various utility functions used by RapidPT for input vali
 
 RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the [references](#references)
 
- 
-<a name="references"></a>
 
-## References
-
-RapidPT is based on the following two papers:
-
-Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
-
-C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutation Testing in Neuroimaging. Neural Information Processing Systems (NIPS), 2013.
 
 
