@@ -36,7 +36,7 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
 
 **RapidPT** is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. 
 
-**1. Fast:** RapidPT has shown speedups ranging from **30-1000x** faster than simple permutation testing implementations, and **2-40x** faster than SnPM, a state of the art nonparametric testing toolbox in neuroimaging. 
+**1. Fast:** RapidPT has shown speedups ranging from **30-1000x** faster than simple permutation testing implementations (left), and **2-40x** faster than SnPM (right), a state of the art nonparametric testing toolbox in neuroimaging. 
 
 <table style="width:100%">
   <tr>
