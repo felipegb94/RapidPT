@@ -6,7 +6,7 @@
 2. [Use Cases](#usecases)
 3. [Setup](#setup)
 4. [Usage](#usage)
-5. [Usage within SnPM] (#usagesnpm)
+5. [Usage within SnPM](#usagesnpm)
   * [Prerequisites](#snpmprerequisites)
   * [SnPM + RapidPT Setup](#snpmrapidptsetup)
   * [Usage](#snpmusage)
@@ -21,7 +21,7 @@
 
 ## Overview
 
-Multiple hypothesis testing is a problem when applying statistical tests on neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
+Multiple hypothesis testing is a problem in neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
 
 **RapidPT** is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. 
 
