@@ -13,6 +13,7 @@ C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutatio
 
 ## Table of Contents
 
+0. [References](#references)
 1. [Overview](#overview)
 2. [Use Cases](#usecases)
 3. [Setup](#setup)
@@ -25,7 +26,6 @@ C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutatio
   * [Important Notes](#snpmnotes)
 6. [Code Organization](#codeorganization)
 7. [Warnings](#warnings)
-8. [References](#references)
 
 <a name="overview">
 </a>
