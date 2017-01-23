@@ -18,7 +18,7 @@ for i = 1:4
 N = N_All(i);
 
 subV = 0.0035;
-trainNum = N;
+trainNum = floor(N);
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 dataset_title = strcat(num2str(N),'-',num2str(N/2),'-',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
@@ -38,7 +38,7 @@ snpm_p = plot(pValResults.tThresh,pValResults.snpmPVal/100,'o');
 rapidpt_p = plot(pValResults.tThresh,pValResults.rapidptPVal/100,'*');
 naivept_p = plot(pValResults.tThresh,pValResults.naiveptPVal/100,'+');
 
-title(strcat('P-Values: n=',num2str(N),',  L=',num2str(permutations)),'FontSize',14,'fontweight','bold');
+title(strcat('P-Values: n=',num2str(N),',  L=',num2str(permutations),',  l=',num2str(trainNum)),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
 set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',5)

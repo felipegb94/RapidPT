@@ -16,8 +16,9 @@ N_All = [50,100,200,400];
 for i = 1:4
 
 N = N_All(i);
+
 subV = 0.0035;
-trainNum = N;
+trainNum = floor(2*N);
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
 save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/Scaling_All/';
@@ -38,7 +39,7 @@ snpm_p = plot(ScalingResults.permutations,ScalingResults.snpmTimes./3600,'*-');
 rapidpt_p = plot(ScalingResults.permutations,ScalingResults.rapidptTimes./3600,'*-');
 % naivept_p = plot(ScalingResults.permutations,ScalingResults.naiveptTimes./3600,'*-');
 
-title(strcat('Permutation Parallel Scaling: ',' n=',num2str(N)),'FontSize',14,'fontweight','bold');
+title(strcat('Permutation Parallel Scaling: ',' n=',num2str(N),', l=',num2str(trainNum)),'FontSize',14,'fontweight','bold');
 set(snpm_p,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
 set(rapidpt_p,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
 % set(naivept_p,'Color',co(7,:),'LineWidth',2,'MarkerSize',5)

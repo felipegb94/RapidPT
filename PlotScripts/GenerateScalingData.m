@@ -1,13 +1,19 @@
 addpath('functions')
 clear;
 
+N_All = [50,100,200,400];
+trainNum_All = floor(3*N_All/4);
+for j = 1:4
+
+N = N_All(j);
+trainNum = trainNum_All(j);
 
 % RapidPT parameters
 permutations = [2000,5000,10000,20000,40000,80000,160000];
 numPerms = size(permutations,2);
-N = 400;
+%N = 400;
 subV = 0.0035;
-trainNum = N;
+%trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../timings_parallel/',dataset,'/');
 
@@ -55,5 +61,5 @@ ScalingResults.rapidptTimes = rapidptTimes;
 save(strcat(prefix,'Scaling_',dataset,'_',description_postfix,'.mat'), 'ScalingResults');
 
 
-
+end
 

@@ -5,13 +5,19 @@ addpath('../../nifti/');
 
 clear;
 
+N_All = [50,100,200,400];
+trainNum_All = floor(2*N_All);
+for k = 1:4
+
+N = N_All(k);
+trainNum = trainNum_All(k);
+
+
 pVals = 1:0.2:10;
 numPVals = size(pVals,2);
 % Parameters
 permutations = 10000;
-N = 200;
 subV = 0.0035;
-trainNum = N;
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
 rapidptPath = strcat(prefix,'rapidpt/');
@@ -127,7 +133,7 @@ disp(ResamplingRiskResults.smoothResamplingRisk_naivept_rapidpt)
 save(strcat(prefix,'ResamplingRisk_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum),'.mat'), 'ResamplingRiskResults');
 
 
-
+end
 
 
 

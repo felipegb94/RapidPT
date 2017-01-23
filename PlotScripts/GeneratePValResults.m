@@ -1,15 +1,22 @@
 addpath('functions')
 clear;
 
+N_All = [50,100,200,400];
+trainNum_All = floor(N_All);
+for j = 1:4
+
+N = N_All(j);
+trainNum = trainNum_All(j);
+
 tThresholds = 4:0.1:7;
 numTThresh = size(tThresholds,2);
 
 % Parameters
 permutations = 10000;
 numPerms = size(permutations,2);
-N = 400;
+%N = 400;
 subV = 0.0035;
-trainNum = N;
+
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
 rapidptPath = strcat(prefix,'rapidpt/');
@@ -46,3 +53,4 @@ for i = 1:numTThresh
 end
 % 
 save(strcat(prefix,'PVal_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum),'.mat'), 'pValResults');
+end
