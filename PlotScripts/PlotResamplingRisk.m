@@ -16,7 +16,7 @@ for i = 1:4
 
 N = N_All(i);
 subV = 0.0035;
-trainNum = N;
+trainNum = floor(2*N);
 dataset = strcat(num2str(N),'_',num2str(N/2),'_',num2str(N/2));
 prefix = strcat('../../outputs_parallel/',dataset,'/');
 save_path = '/home/felipe/Dropbox/permtest_neuroimage/figures/ResamplingRisk_All/';
@@ -37,7 +37,7 @@ ResamplingRisk_snpm_rapidpt_p = plot(ResamplingRiskResults.pVals/100,ResamplingR
 ResamplingRisk_naivept_rapidpt_p2 = plot(ResamplingRiskResults.pVals/100,ResamplingRiskResults.resamplingRisk_naivept_rapidpt,'*-');
 
 
-title(strcat('Resampling Risk: ',' n=',num2str(N), ', L=',num2str(permutations)),'FontSize',14,'fontweight','bold');
+title(strcat('Resampling Risk: ',' n=',num2str(N), ', L=',num2str(permutations), ', l=',num2str(trainNum)),'FontSize',14,'fontweight','bold');
 set(ResamplingRisk_snpm_naivept_p ,'Color',co(1,:),'LineWidth',2,'MarkerSize',5)
 set(ResamplingRisk_snpm_rapidpt_p ,'Color',co(2,:),'LineWidth',2,'MarkerSize',5)
 set(ResamplingRisk_naivept_rapidpt_p2 ,'Color',co(3,:),'LineWidth',2,'MarkerSize',5)

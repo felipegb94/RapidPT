@@ -11,7 +11,7 @@ co = [0    0.4470    0.7410;...
     0.6350    0.0780    0.1840];
 
 % RapidPT parameters
-permutations = 40000;
+permutations = 80000;
 numPerms = size(permutations,2);
 N = [50,100,200,400];
 numDatasets = size(N,2);

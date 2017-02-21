@@ -6,7 +6,7 @@ addpath('../../nifti/');
 clear;
 
 N_All = [50,100,200,400];
-trainNum_All = floor(2*N_All);
+trainNum_All = floor(N_All*2);
 for k = 1:4
 
 N = N_All(k);
@@ -126,9 +126,9 @@ for i = 1:numPVals
     ResamplingRiskResults.smoothResamplingRisk_snpm_naivept(i) = smoothResamplingRisk_snpm_naivept; 
 end
 
-disp(ResamplingRiskResults.smoothResamplingRisk_snpm_naivept)
-disp(ResamplingRiskResults.smoothResamplingRisk_snpm_rapidpt)
-disp(ResamplingRiskResults.smoothResamplingRisk_naivept_rapidpt)
+disp(ResamplingRiskResults.smoothResamplingRisk_snpm_naivept);
+disp(ResamplingRiskResults.smoothResamplingRisk_snpm_rapidpt);
+disp(ResamplingRiskResults.smoothResamplingRisk_naivept_rapidpt);
 
 save(strcat(prefix,'ResamplingRisk_',dataset,'_',num2str(permutations),'_',num2str(subV),'_',num2str(trainNum),'.mat'), 'ResamplingRiskResults');
 

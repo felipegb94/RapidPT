@@ -4,7 +4,9 @@ addpath(RapidPTLibraryPath);
 
 % Load input data and input labels
 dataPath = '../50_25_25.mat'; 
+% dataPath = '../snpm_test_data_14.mat'; 
 load(dataPath);
+% Data = X;
 % N subjects, V voxels (or statistics)
 [N,V] = size(Data);
 numPermutations = 5000;
@@ -16,5 +18,5 @@ write = 0;
 
 [outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
-save(strcat('outputs/outputs_',num2str(numPermutations),'.mat'),'outputs');
-save(strcat('timings/timings_',num2str(numPermutations),'.mat'),'timings');
+% save(strcat('../outputs_',num2str(numPermutations),'.mat'),'outputs');
+% save(strcat('../timings_',num2str(numPermutations),'.mat'),'timings');
