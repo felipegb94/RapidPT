@@ -45,7 +45,7 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
   </tr>
 </table>
 
-**2. Reliable:** RapidPT has been validated against SnPM and a simple permutation testing implementation. Three validation measurements were used: the KL-Divergence between max null distributions, the corrected p-values, and the resampling risk. More than **200 validation runs** have been done with various neuroimaging datasets composed from 50 up to 400 subjects. 
+**2. Reliable:** RapidPT has been validated against SnPM and a simple permutation testing implementation. Three validation measurements were used: the KL-Divergence between max null distributions, the corrected p-values, and the resampling risk. Hundreds of validation runs have been done with various neuroimaging datasets composed from 50 up to 400 subjects. For more information on the performance of RapidPT refer to the reference papers. 
 
 <table style="width:100%">
   <tr>
@@ -54,7 +54,7 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
   </tr>
 </table>
 
-**3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations highly rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular laptops. The toolbox is able to leverage multi-core environments when available.
+**3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations  rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular workstations. Furthermore, the toolbox is able to leverage multi-core environments when available.
 
 A thorough analysis of the scenarios were RapidPT performs best is done in the two [reference papers](#references).
 
@@ -127,7 +127,7 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 
 ### Prerequistes
 
-* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm fmri` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
+* [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
 
 
 * [NiFTI](http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
