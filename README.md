@@ -4,7 +4,7 @@
 
 ## References
 
-RapidPT is based on the following two papers:
+RapidPT is based on the work presented on this paper:
 
 Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, C. Maumet, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
 
