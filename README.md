@@ -23,8 +23,7 @@ Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A ne
   * [Outputs Info](#snpmoutputs)
   * [Important Notes](#snpmnotes)
 6. [Code Organization](#codeorganization)
-7. [Warnings](#warnings)
-8. [Related Work](#relatedwork)
+7. [Related Work](#relatedwork)
 
 <a name="overview">
 </a>
@@ -255,7 +254,7 @@ These are the default directories used to output the resulting max-null distribu
 This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
   
 
-<a name="related_work"></a>
+<a name="relatedwork"></a>
 ## Related Work
 
 The main theorem motivating this work was presented in this conference paper:
