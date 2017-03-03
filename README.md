@@ -24,6 +24,7 @@ Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A ne
   * [Important Notes](#snpmnotes)
 6. [Code Organization](#codeorganization)
 7. [Warnings](#warnings)
+8. [Related Work](#relatedwork)
 
 <a name="overview">
 </a>
@@ -253,12 +254,14 @@ These are the default directories used to output the resulting max-null distribu
 
 This directory contains various utility functions used by RapidPT for input validation and post-processing. Separating these functions from the main code makes `TwoSampleRapidPT.m` more concise.
   
-<a name="warnings"></a>
 
-## Warnings
+<a name="related_work"></a>
+## Related Work
 
-RapidPT has been extensively tested on medium and large datasets (20+ subjects). The datasets have been composed of group1 and group2 type data. Additionally these datasets after preprocessing give 300,000+ voxel statistics. Hence speedups/accuracy seen here have been on these types of datasets, and it might not make sense to use RapidPT on smaller datasets since the permutation testing procedure would take only a few minutes compared to days/hours. For a detailed description of the datasets used to evaluate RapidPT see the [references](#references)
+The main theorem motivating this work was presented in this conference paper:
 
-
+C. Hinrichs*, V. K. Ithapu*, Q. Sun, S. C. Johnson, V. Singh. 
+Speeding up Permutation Testing in Neuroimaging 
+Advances in Neural Information Processing Systems (NIPS), 2013 
 
 
