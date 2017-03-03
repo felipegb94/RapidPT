@@ -43,7 +43,7 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
   </tr>
 </table>
 
-**2. Reliable:** RapidPT has been validated against SnPM and a simple permutation testing implementation. Three validation measurements were used: the KL-Divergence between max null distributions, the corrected p-values, and the resampling risk. Hundreds of validation runs have been done with various neuroimaging datasets composed from 50 up to 400 subjects. For more information on the performance of RapidPT refer to the reference papers. 
+**2. Reliable:** RapidPT has been validated against SnPM and a simple permutation testing implementation. Three validation measurements were used: the KL-Divergence between max null distributions, the corrected p-values, and the resampling risk. Hundreds of validation runs have been done with various neuroimaging datasets composed from 50 up to 400 subjects. For more information on the performance of RapidPT refer to the reference paper. 
 
 <table style="width:100%">
   <tr>
@@ -54,7 +54,8 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
 
 **3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations  rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular workstations. Furthermore, the toolbox is able to leverage multi-core environments when available.
 
-A thorough analysis of the scenarios were RapidPT performs best is done in the two [reference papers](#references).
+A thorough analysis of the scenarios were RapidPT performs best is done in the [
+paper](#references).
 
 <a name="usecases"></a>
 
