@@ -8,8 +8,6 @@ RapidPT is based on the following two papers:
 
 Accelerating Permutation Testing in Neuroimaging through Subspace Tracking: A new plugin for SnPM. F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, C. Maumet, S.C. Johnson, T.E. Nichols, V. Singh. In Preparation
 
-C. Hinrichs, V.K. Ithapu, Q. Sun, V. Singh, S.C. Johnson. Speeding up Permutation Testing in Neuroimaging. Neural Information Processing Systems (NIPS), 2013.
-
 
 ## Table of Contents
 
