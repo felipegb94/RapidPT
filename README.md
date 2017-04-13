@@ -10,8 +10,7 @@ RapidPT is based on the work presented on this paper:
 
 F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, C. Maumet, S.C. Johnson, T.E. Nichols, V. Singh. 
 
-In Preparation
-
+Under Review
 
 ## Table of Contents
 
