@@ -10,7 +10,7 @@ RapidPT is based on the work presented on this paper:
 
 F. Gutierrez-Barragan, V.K. Ithapu, C. Hinrichs, C. Maumet, S.C. Johnson, T.E. Nichols, V. Singh. 
 
-Under Review
+Neuorimage, 2017.
 
 ## Table of Contents
 
