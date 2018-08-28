@@ -21,10 +21,10 @@ Neuorimage, 2017.
 4. [Usage](#usage)
 5. [Usage within SnPM](#usagesnpm)
   * [Prerequisites](#snpmprerequisites)
+  * [Important Notes](#snpmnotes)
   * [SnPM + RapidPT Setup](#snpmrapidptsetup)
   * [Usage](#snpmusage)
   * [Outputs Info](#snpmoutputs)
-  * [Important Notes](#snpmnotes)
 6. [Code Organization](#codeorganization)
 7. [Related Work](#relatedwork)
 
