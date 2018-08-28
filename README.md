@@ -35,7 +35,7 @@ Neuorimage, 2017.
 
 Multiple hypothesis testing is a problem in neuroimaging studies. Permutation testing is a nonparametric method for estimating a threshold that can identify what brain regions that display statistically significant differences or activity. The computational burden of this method, however, for low thresholds and large datasets can be prohibitive.
 
-**RapidPT** is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. 
+**RapidPT** is a MATLAB toolbox for fast, reliable, hardware independent, permutation testing. For ease of use we have integrated RapidPT into SnPM. Please refer to the [Usage within SnPM section](#usagesnpm).
 
 **1. Fast:** RapidPT has shown speedups ranging from **30-1000x** faster than simple permutation testing implementations (left), and **2-40x** faster than SnPM (right), a state of the art nonparametric testing toolbox in neuroimaging. 
 
@@ -57,8 +57,7 @@ Multiple hypothesis testing is a problem in neuroimaging studies. Permutation te
 
 **3. Hardware Independent:** It has been shown that with powerful enough hardware (highend GPUs or a cluster) and an efficient implementation, the permutation testing procedure can be spedup by orders of magnitude. These implementations  rely on expensive hardware. RapidPT, however, takes advantage of the structure of the problem to speedup the algorithm, allowing it to be efficient even in regular workstations. Furthermore, the toolbox is able to leverage multi-core environments when available.
 
-A thorough analysis of the scenarios were RapidPT performs best is done in the [
-paper](#references).
+A thorough analysis of the scenarios were RapidPT performs best is done in the [paper](#references).
 
 <a name="usecases"></a>
 
@@ -84,7 +83,7 @@ If you don't want to have the `addpath` line in every program you make, you can 
 
 ## Usage
 
-RapidPT only offer a function that performs Permutation Testing. It has no GUI, pre or post processing modules. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI, pre and post processing capabilities. Please refer to the [Usage Within SnPM](#usagesnpm) section.
+RapidPT only offers a function that performs Permutation Testing. It has no GUI, pre or post processing modules. We have prepared a plugin for SnPM that allows the user to take advantage of SnPM's GUI, pre and post processing capabilities. Please refer to the [Usage Within SnPM](#usagesnpm) section.
 
 There are two ways to use the core of RapidPT, either by calling the wrapper function `TwoSampleRapidPT.m` or directly calling the core function `RapidPT.m`. `TwoSampleRapidPT` assigns some default inputs that have been extensively tested that produce an accurate recovery of the max null distribution and then calls `RapidPT`. On the other hand if you call `RapidPT` directly you will have to assign these parameters. Let's first go through `Example_TwoSampleRapidPT.m`:
 
@@ -125,43 +124,51 @@ Take a look at the header comments of `RapidPT.m` and the comments in `Example_R
 
 ## Usage within SnPM
 
+RapidPT is currently not available in the main SnPM repository. The plugin that we have developed is only available in our fork of the SnPM respository found [here](https://github.com/felipegb94/SnPM-devel).
+
 <a name="snpmprerequisites"></a>
 
 ### Prerequistes
 
 * [SPM12](http://www.fil.ion.ucl.ac.uk/spm/software/) - In order to be able to use RapidPT within SPM/SnPM you will need to have SPM12 setup (obviously). For an overview of how to install SPM please refer to their [wiki](https://en.wikibooks.org/wiki/SPM/Installation_on_64bit_Linux). If you have spm setup, running `spm` in the MATLAB command line should launch a GUI such as the one shown in the section [snpm usage](#snpmusage).
 
-
 * [NiFTI](http://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image) - You will also need the NiFTI toolset. Make sure the NiFTI toolset path is added before you run SnPM. `addpath('NiFTI toolset path')`.
 
 * Git (recommended) - The setup below uses git to clone the repositories. Instead of cloning them you can also download the zip files from the links given throughout the setup instructions.
+
+<a name="snpmnotes"></a>
+
+### Improtant Notes (PLEASE READ BEFORE USING):
+
+* RapidPT is only available for Two Sample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
+
+* For a thorough analysis of the ideas and the RapidPT algorithm please refer to the [references](#references)
+
 
 <a name="snpmrapidptsetup"></a>
 
 ### SnPM + RapidPT Setup
 
-Currently to use RapidPT within SnPM you will have to [download the development version](https://github.com/nicholst/SnPM-devel). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
+Currently to use RapidPT within SnPM you will have to [download the development version](https://github.com/felipegb94/SnPM-devel). To do this, go to wherever your SPM installation/folder is (mine is under my MATLAB folder) and do the following commands:
 
 ```
 cd WHEREVER YOUR SPM DOWNLOAD IS
 cd spm12/toolbox/
-git clone https://github.com/nicholst/SnPM-devel
+git clone https://github.com/felipegb94/SnPM-devel
 cd SnPM-devel/
 ```
 
-SnPM has a flag that determine when RapidPT is used. Depending on the value of the flag `SnPMdefs.RapidPT` RapidPT is:
+<!-- SnPM has a flag that determine when RapidPT is used. Depending on the value of the flag `SnPMdefs.RapidPT` RapidPT is:
 
 1. **Always Used:** `SnPMdefs.RapidPT = 2`.  
 2. **Sometimes Used:** `SnPMdefs.RapidPT = 1`. Used when `nPerm >= 10000`.  
 3. **Never Used:** `SnPMdefs.RapidPT = 0`.  
 
 This flag should be set in `snpm_defaults.m` on line 61. It is by default set to 0.
-
+ -->
 <a name="snpmusage"></a>
 
 ### SnPM Usage
-
-This would be a good time to read the important notes below. 
 
 Now that you have setup RapidPT within SnPM, SnPM will work very similar to before. Launch SPM,
 
@@ -176,21 +183,21 @@ Now follow these steps:
 <table style="width:100%">
   <tr>
     <th align="center"><strong>SPM GUI</strong></th>
-    <th align="center"><strong>SPM Batch</strong></th>
+    <th align="center"><strong>SnPM Config + RPT Enable Option</strong></th>
   </tr>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmgui.png" alt="spmgui"/></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/spmbatch.png" alt="spmbatch"/></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/UsageSnPM.png" alt="UsageSnPM"/></td>
   </tr>
 </table>
-
 3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
-4. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
-5. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.
-6. Go to SPM navigation bar again, then `Tools/SnPM/Compute`
-7. Set the SnPM cfg file to the one you just made by clicking on the run button. 
-8. Click the green run button again, and now SnPM will run with RapidPT.
-9. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
+4. You can enable RapidPT by using the `Use RapidPT` option.
+5. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
+6. Click the green run button. This creates an SnPM config file in the path where you want your outputs to be. This step should take a few seconds only.
+7. Go to SPM navigation bar again, then `Tools/SnPM/Compute`
+8. Set the SnPM cfg file to the one you just made by clicking on the run button. 
+9. Click the green run button again, and now SnPM will run with RapidPT.
+10. Once you are done, go to the directory that you selected as your `Analysis Directory` and look at the outputs.
 
 <a name="snpmoutputs"></a>  
 
@@ -208,14 +215,6 @@ Once you are done, inside your `analysis` directory you will find a folder calle
 The following plot is a histogram of the Maxnull distribution in MaxT and a t-threshold associated to an alpha=0.05.
 
 ![maxnull](https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/recoveredMaxNull.png)
-
-<a name="snpmnotes"></a>
-
-### Improtant Notes (PLEASE READ BEFORE USING):
-
-* RapidPT is only available for Two Sample t-test right now because it is the procedure that has been extensively validated and benchmarked. Regular SnPM should run if you try running SnPM with any other tests.
-
-* For a thorough analysis of the ideas and the RapidPT algorithm please refer to the [references](#references)
 
 
 <a name="codeorganization"></a>
