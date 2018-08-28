@@ -29,3 +29,5 @@ write = 0;
 
 [outputs, timings] = TwoSampleRapidPT(Data, numPermutations, nGroup1, write, RapidPTLibraryPath);
 
+% save(strcat('../outputs_',num2str(numPermutations),'.mat'),'outputs');
+% save(strcat('../timings_',num2str(numPermutations),'.mat'),'timings');
