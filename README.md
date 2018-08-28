@@ -180,6 +180,7 @@ Now follow these steps:
 
 1. Go to SPM Menu window.
 2. Click on Batch and go to the batch window that just opened.
+
 <table style="width:100%">
   <tr>
     <th align="center"><strong>SPM GUI</strong></th>
@@ -190,6 +191,7 @@ Now follow these steps:
     <td align="center"><img src="https://raw.githubusercontent.com/felipegb94/RapidPT/master/images/UsageSnPM.png" alt="UsageSnPM"/></td>
   </tr>
 </table>
+
 3. On the navigation bar click on SPM, then `tools/SnPM/Specify/2 Groups Two Sample T test; 1 scan per subject`.
 4. You can enable RapidPT by using the `Use RapidPT` option.
 5. Here you will be able to specifiy a folder where you want your outputs to be (`Analysis Directory`), your input data (.nii images of group1 and group2), and also the number of permutations you want to do. 
