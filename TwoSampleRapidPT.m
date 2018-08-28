@@ -53,13 +53,14 @@ function [ outputs, timings ] = TwoSampleRapidPT(Data, numPermutations, nGroup1,
 % good results, independent of the dataset size and number of permutations
 
     testingTypeVal = {'TwoSample'};
+        
     
     if(numPermutations < 10000)      
         subVal = {0.005};
     else
         subVal = {0.0035};
     end
-    
+
     maxCyclesVal = {3}; % Number of cycles for training.
     iterVal = {30}; % Number of iterations for matrix completion.
 

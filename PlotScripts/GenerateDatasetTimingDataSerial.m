@@ -3,7 +3,7 @@ clear;
 
 
 % RapidPT parameters
-permutations = 20000;
+permutations = 80000;
 numPerms = size(permutations,2);
 N = [50,100,200,400];
 numDatasets = size(N,2);
